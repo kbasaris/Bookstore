@@ -1,12 +1,12 @@
 ﻿using BookStore.Data.Infrastructure;
 using BookStore.Data.Repositories;
-using BookStore.Data;
 using BookStore.Authentication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using BookStore.Data.Extensions;
+using BookStore.Data.Entities;
 
 namespace BookStore.Authentication
 {

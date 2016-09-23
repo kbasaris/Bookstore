@@ -1,9 +1,0 @@
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\bin\Debug\BookStore.Authentication.dll
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\bin\Debug\BookStore.Authentication.pdb
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\bin\Debug\BookStore.Data.dll
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\bin\Debug\EntityFramework.dll
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\bin\Debug\BookStore.Data.pdb
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\bin\Debug\EntityFramework.xml
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\obj\Debug\BookStore.Authentication.csprojResolveAssemblyReference.cache
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\obj\Debug\BookStore.Authentication.dll
-C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Authentication\obj\Debug\BookStore.Authentication.pdb

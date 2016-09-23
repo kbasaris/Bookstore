@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Book.cs" />
-    <Compile Include="Entities\BookStore.cs" />
+    <Compile Include="BookStore.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Entities\IEntityBase.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />

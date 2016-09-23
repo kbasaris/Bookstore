@@ -1,4 +1,5 @@
-﻿using BookStore.Data.Infrastructure;
+﻿using BookStore.Data.Entities;
+using BookStore.Data.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
