@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Data", "BookStore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Authentication", "BookStore.Authentication\BookStore.Authentication.csproj", "{F8B9660A-97E7-4829-9952-21224C6295B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.WebApi", "BookStore.WebApi\BookStore.WebApi.csproj", "{A8D65D44-307E-40F8-B7A9-E6685A6E3EE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.WebUI", "BookStore.WebUI\BookStore.WebUI.csproj", "{451204F4-4944-43E4-954D-115638ECE72F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{F8B9660A-97E7-4829-9952-21224C6295B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B9660A-97E7-4829-9952-21224C6295B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B9660A-97E7-4829-9952-21224C6295B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8D65D44-307E-40F8-B7A9-E6685A6E3EE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D65D44-307E-40F8-B7A9-E6685A6E3EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D65D44-307E-40F8-B7A9-E6685A6E3EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8D65D44-307E-40F8-B7A9-E6685A6E3EE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{451204F4-4944-43E4-954D-115638ECE72F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451204F4-4944-43E4-954D-115638ECE72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451204F4-4944-43E4-954D-115638ECE72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451204F4-4944-43E4-954D-115638ECE72F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
