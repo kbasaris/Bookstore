@@ -7,9 +7,9 @@ namespace BookStore.Data
     using System.Data.Entity.Spatial;
 
     [Table("User")]
-    public partial class User
+    public partial class User : IEntityBase
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [StringLength(100)]
         public string Username { get; set; }
@@ -33,6 +33,6 @@ namespace BookStore.Data
 
         public bool? LoggedIn { get; set; }
 
-        public int? Role { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }
