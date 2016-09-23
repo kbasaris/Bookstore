@@ -12,7 +12,7 @@ namespace BookStore.Authentication.Utilities
     {
         public IPrincipal Principal { get; set; }
         public User User { get; set; }
-        public bool IsValid()
+        public bool IsValId()
         {
             return Principal != null;
         }

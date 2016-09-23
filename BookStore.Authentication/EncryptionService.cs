@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BookStore.Authentication
 {
@@ -12,9 +9,9 @@ namespace BookStore.Authentication
         public string CreateSalt()
         {
             var data = new byte[0x10];
-            using (var cryptoServiceProvider = new RNGCryptoServiceProvider())
+            using (var cryptoServiceProvIder = new RNGCryptoServiceProvider())
             {
-                cryptoServiceProvider.GetBytes(data);
+                cryptoServiceProvIder.GetBytes(data);
                 return Convert.ToBase64String(data);
             }
         }

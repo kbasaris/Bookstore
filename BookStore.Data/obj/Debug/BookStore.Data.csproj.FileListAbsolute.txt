@@ -10,3 +10,16 @@ C:\Users\Kostas\Documents\Visual Studio 2015\Projects\BookStore\BookStore.Data\o
 C:\Users\Kostas\Documents\Visual Studio 2015\Projects\BookStore\BookStore.Data\obj\Debug\BookStore.Data.csprojResolveAssemblyReference.cache
 C:\Users\Kostas\Documents\Visual Studio 2015\Projects\BookStore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.initialMigration.resources
 C:\Users\Kostas\Documents\Visual Studio 2015\Projects\BookStore\BookStore.Data\obj\Debug\BookStore.Data.csproj.GenerateResource.Cache
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\bin\Debug\BookStore.Data.dll.config
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\bin\Debug\BookStore.Data.dll
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\bin\Debug\BookStore.Data.pdb
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\bin\Debug\EntityFramework.dll
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\bin\Debug\EntityFramework.xml
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csprojResolveAssemblyReference.cache
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.dll
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.pdb
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init.resources
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csproj.GenerateResource.Cache
+C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init1.resources

@@ -1,14 +1,12 @@
-﻿using HomeCinema.Data.Infrastructure;
-using HomeCinema.Data.Repositories;
+﻿using BookStore.Data.Infrastructure;
+using BookStore.Data.Repositories;
 using BookStore.Data;
 using BookStore.Authentication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using HomeCinema.Data.Extensions;
+using BookStore.Data.Extensions;
 
 namespace BookStore.Authentication
 {
@@ -33,19 +31,19 @@ namespace BookStore.Authentication
 
         #region IMembershipService Implementation
 
-        public MembershipContext ValidateUser(string username, string password)
+        public MembershipContext ValIdateUser(string username, string password)
         {
             var membershipCtx = new MembershipContext();
 
             var user = _userRepository.GetSingleByUsername(username);
-            if (user != null && isUserValid(user, password))
+            if (user != null && isUserValId(user, password))
             {
                 var userRoles = GetUserRoles(user.Username);
                 membershipCtx.User = user;
                 
-                var identity = new GenericIdentity(user.Username);
+                var Identity = new GenericIdentity(user.Username);
                 membershipCtx.Principal = new GenericPrincipal(
-                    identity,
+                    Identity,
                     userRoles.Select(x => x.Name).ToArray());
             }
 
@@ -121,20 +119,20 @@ namespace BookStore.Authentication
 
             var userRole = new UserRole()
             {
-                RoleId = role.ID,
-                UserId = user.ID
+                RoleId = role.Id,
+                UserId = user.Id
             };
             _userRoleRepository.Add(userRole);
         }
 
-        private bool isPasswordValid(User user, string password)
+        private bool isPasswordValId(User user, string password)
         {
             return string.Equals(_encryptionService.EncryptPassword(password, user.Salt), user.HashedPassword);
         }
 
-        private bool isUserValid(User user, string password)
+        private bool isUserValId(User user, string password)
         {
-            if (isPasswordValid(user, password))
+            if (isPasswordValId(user, password))
             {
                 return !user.IsLocked;
             }
