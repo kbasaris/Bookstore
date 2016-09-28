@@ -7,7 +7,7 @@ using System.Data.Entity.Spatial;
 namespace BookStore.Data.Entities
 {
     [Table("Book")]
-    public partial class Book
+    public partial class Book : IEntityBase
     {
         public Book()
         {

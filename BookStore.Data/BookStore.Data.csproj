@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Entities\Book.cs" />
     <Compile Include="BookStore.cs" />
+    <Compile Include="Entities\Error.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Entities\IEntityBase.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
@@ -71,6 +72,10 @@
     <Compile Include="Migrations\201609232220330_init1.cs" />
     <Compile Include="Migrations\201609232220330_init1.Designer.cs">
       <DependentUpon>201609232220330_init1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609251542245_Error.cs" />
+    <Compile Include="Migrations\201609251542245_Error.Designer.cs">
+      <DependentUpon>201609251542245_Error.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609232220330_init1.resx">
       <DependentUpon>201609232220330_init1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609251542245_Error.resx">
+      <DependentUpon>201609251542245_Error.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

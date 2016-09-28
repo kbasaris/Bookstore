@@ -1,0 +1,30 @@
+﻿@model BookStore.Mvc.Models.RegistrationViewModel
+
+@{
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+    ViewBag.Title = "Login";
+}
+
+
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+<div class="login">
+    <div class="login-header">
+        <h1>Register</h1>
+    </div>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        <div class="login-form">
+            <h3>Username:</h3>
+            @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" })
+            <h3>Password:</h3>
+            @Html.TextBoxFor(m => m.Password, new { placeholder = "Username" })
+            <h3>Email:</h3>
+            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" })
+            <br>
+            <input type="submit" value="Register" class="login-button" />
+        </div>
+    }
+</div>
+<div class="error-page">
+    <div class="try-again">Error: Try again?</div>
+</div>

@@ -31,7 +31,7 @@ namespace BookStore.Authentication
 
         #region IMembershipService Implementation
 
-        public MembershipContext ValIdateUser(string username, string password)
+        public MembershipContext ValidateUser(string username, string password)
         {
             var membershipCtx = new MembershipContext();
 
