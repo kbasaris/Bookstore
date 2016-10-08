@@ -23,9 +23,22 @@ namespace BookStore.Mvc.Controllers
         {
             HttpClient httpClient = new HttpClient();
             var rslt = httpClient.PostAsJsonAsync(new Uri(Constants.LOGIN_URL), loginViewModel).Result;
-            httpClient.Dispose();
-            if(!rslt.IsSuccessStatusCode)
+            ViewBag.loginRslt = rslt.IsSuccessStatusCode;
+            if (!rslt.IsSuccessStatusCode)
                 return View();
+
+            var userInfo = rslt.Content.ReadAsAsync<UserInfo>().Result;
+
+            Session.Add("userId", userInfo.UserId);
+            Session.Add("username", userInfo.UserId);
+
+
+            foreach (var item in userInfo.UserRoles)
+            {
+                int i = 1;
+                Session.Add("userRole"+i++, userInfo.UserId);
+            }
+            httpClient.Dispose();
 
             return RedirectToAction("Index", "Home");
         }
@@ -40,10 +53,23 @@ namespace BookStore.Mvc.Controllers
         {
             HttpClient httpClient = new HttpClient();
             var rslt = httpClient.PostAsJsonAsync(new Uri(Constants.REGISTER_URL), loginViewModel).Result;
-            var scess = rslt.IsSuccessStatusCode;
-            httpClient.Dispose();
+            ViewBag.loginRslt = rslt.IsSuccessStatusCode;
             if (!rslt.IsSuccessStatusCode)
                 return View();
+
+            var userInfo = rslt.Content.ReadAsAsync<UserInfo>().Result;
+
+            Session.Add("userId", userInfo.UserId);
+            Session.Add("username", userInfo.UserId);
+
+
+            foreach (var item in userInfo.UserRoles)
+            {
+                int i = 1;
+                Session.Add("userRole" + i++, userInfo.UserId);
+            }
+            httpClient.Dispose();
+           
 
             return RedirectToAction("Index", "Home");
         }

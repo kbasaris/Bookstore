@@ -17,7 +17,7 @@
             <h3>Username:</h3>
             @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" })
             <h3>Password:</h3>
-            @Html.TextBoxFor(m => m.Password, new { placeholder = "Username" })
+            @Html.TextBoxFor(m => m.Password, new { placeholder = "Username", type="password"})
             <br>
             <input type="submit" value="Login" class="login-button" />
             <br>
@@ -27,6 +27,10 @@
         </div>
     }
 </div>
-<div class="error-page">
-    <div class="try-again">Error: Try again?</div>
-</div>
+@if (ViewBag.LoginRslt != null && !ViewBag.LoginRslt)
+{
+    <div class="error-page">
+        <div class="try-again">Error: Try again?</div>
+    </div>
+}
+

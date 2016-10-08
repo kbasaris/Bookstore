@@ -4,6 +4,7 @@ using BookStore.Authentication.Utilities;
 using BookStore.Data.Entities;
 using BookStore.Data.Infrastructure;
 using BookStore.Data.Repositories;
+using System.Linq;
 using System.Web.Http;
 
 namespace HomeCinema.Web.Controllers
@@ -34,16 +35,21 @@ namespace HomeCinema.Web.Controllers
 
                 if (_userContext.User != null)
                 {
-
-                    return Ok(new { success = true });
+                    UserInfo userInfo = new UserInfo
+                    {
+                        UserId = _userContext.User.Id,
+                        Username = _userContext.User.Username,
+                        UserRoles = _userContext.User.UserRoles.Select(x => x.RoleId).ToList()
+                    };
+                    return Ok(userInfo);
                 }
                 else
                 {
-                    return Ok(new { success = false });
+                    return BadRequest();
                 }
             }
             else
-                return Ok(new { success = false });
+                return BadRequest();
 
         }
 
@@ -52,20 +58,23 @@ namespace HomeCinema.Web.Controllers
         [HttpPost]
         public IHttpActionResult Register(RegistrationViewModel user)
         {
-
-
             if (ModelState.IsValid)
             {
-
                 User _user = _membershipService.CreateUser(user.Username, user.Email, user.Password, new int[] { 1 });
 
                 if (_user != null)
                 {
-                    return Ok(new { success = true });
+                    UserInfo userInfo = new UserInfo
+                    {
+                        UserId = _user.Id,
+                        Username = _user.Username,
+                        UserRoles = _user.UserRoles.Select(x => x.RoleId).ToList()
+                    };
+                    return Ok(userInfo);
                 }
                 else
                 {
-                    return Ok(new { success = false });
+                    return BadRequest();
                 }
             }
             return BadRequest();
