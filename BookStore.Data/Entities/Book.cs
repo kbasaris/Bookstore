@@ -21,7 +21,8 @@ namespace BookStore.Data.Entities
 
         [StringLength(50)]
         public string Author { get; set; }
-
+        public decimal? Price { get; set; }
+        public int? NumOfStocks { get; set; }
         public virtual ICollection<Stock> Stocks { get; set; }
     }
 }

@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Threading;
 
 namespace BookStore.Mvc.Controllers
 {
    
     public class AccountController : Controller
     {
+        HttpClient httpClient = new HttpClient();
 
         public ActionResult Login()
         {
@@ -21,7 +23,6 @@ namespace BookStore.Mvc.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-            HttpClient httpClient = new HttpClient();
             var rslt = httpClient.PostAsJsonAsync(new Uri(Constants.LOGIN_URL), loginViewModel).Result;
             ViewBag.loginRslt = rslt.IsSuccessStatusCode;
             if (!rslt.IsSuccessStatusCode)
@@ -51,7 +52,6 @@ namespace BookStore.Mvc.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult Register(RegistrationViewModel loginViewModel)
         {
-            HttpClient httpClient = new HttpClient();
             var rslt = httpClient.PostAsJsonAsync(new Uri(Constants.REGISTER_URL), loginViewModel).Result;
             ViewBag.loginRslt = rslt.IsSuccessStatusCode;
             if (!rslt.IsSuccessStatusCode)

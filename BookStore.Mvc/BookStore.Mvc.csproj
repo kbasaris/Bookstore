@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -142,6 +143,7 @@
     <Compile Include="Helpers\CustomAuthAttribute.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Helpers\HttpClientExtensions.cs" />
+    <Compile Include="Models\BookViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegistrationViewModel.cs" />
     <Compile Include="Models\UserInfo.cs" />
@@ -223,8 +225,8 @@
     <Content Include="Views\Shared\_EmptyLayout.cshtml" />
     <Content Include="Views\Shared\_MainHeader.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
-    <Content Include="Views\Shared\_MainContent.cshtml" />
     <Content Include="Views\Shared\_MainFooter.cshtml" />
+    <Content Include="Views\Books\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

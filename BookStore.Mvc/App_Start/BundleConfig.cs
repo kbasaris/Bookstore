@@ -24,7 +24,7 @@ namespace BookStore.Mvc
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                        "~/Content/AdminLTE.min.css",
                       "~/Content/skin-blue.min.css"));
 

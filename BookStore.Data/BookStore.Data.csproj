@@ -77,6 +77,30 @@
     <Compile Include="Migrations\201609251542245_Error.Designer.cs">
       <DependentUpon>201609251542245_Error.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610152003279_priceInBook.cs" />
+    <Compile Include="Migrations\201610152003279_priceInBook.Designer.cs">
+      <DependentUpon>201610152003279_priceInBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610152107195_NumOfStocks.cs" />
+    <Compile Include="Migrations\201610152107195_NumOfStocks.Designer.cs">
+      <DependentUpon>201610152107195_NumOfStocks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610152338514_NumOfStocksMove.cs" />
+    <Compile Include="Migrations\201610152338514_NumOfStocksMove.Designer.cs">
+      <DependentUpon>201610152338514_NumOfStocksMove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610152354125_rename.cs" />
+    <Compile Include="Migrations\201610152354125_rename.Designer.cs">
+      <DependentUpon>201610152354125_rename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610152355015_rename1.cs" />
+    <Compile Include="Migrations\201610152355015_rename1.Designer.cs">
+      <DependentUpon>201610152355015_rename1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610160042572_init3.cs" />
+    <Compile Include="Migrations\201610160042572_init3.Designer.cs">
+      <DependentUpon>201610160042572_init3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
@@ -101,6 +125,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609251542245_Error.resx">
       <DependentUpon>201609251542245_Error.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610152003279_priceInBook.resx">
+      <DependentUpon>201610152003279_priceInBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610152107195_NumOfStocks.resx">
+      <DependentUpon>201610152107195_NumOfStocks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610152338514_NumOfStocksMove.resx">
+      <DependentUpon>201610152338514_NumOfStocksMove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610152354125_rename.resx">
+      <DependentUpon>201610152354125_rename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610152355015_rename1.resx">
+      <DependentUpon>201610152355015_rename1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610160042572_init3.resx">
+      <DependentUpon>201610160042572_init3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

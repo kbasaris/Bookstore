@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Api.Mappings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,7 @@ namespace BookStore.Api
             // Configure Autofac
             AutofacConfig.Initialize(GlobalConfiguration.Configuration);
             //Configure AutoMapper
-           // AutoMapperConfiguration.Configure();
+            AutoMapperConfiguration.Configure();
         }
     }
 }

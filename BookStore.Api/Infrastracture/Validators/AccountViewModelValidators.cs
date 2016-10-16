@@ -29,4 +29,12 @@ namespace BookStore.Api.Infrastracture.Validators
                 .WithMessage("Invalid password");
         }
     }
+    public class BookViewModelValidator : AbstractValidator<BookViewModel>
+    {
+        public BookViewModelValidator()
+        {
+            RuleFor(book => book.Title).NotEmpty().Length(1,200)
+                .WithMessage("Select a Genre");
+        }
+    }
 }
