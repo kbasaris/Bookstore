@@ -1,6 +1,7 @@
 ﻿@model BookStore.Mvc.Models.BookViewModel
 
 @{
+    
     ViewBag.Title = "Create";
 }
 
@@ -11,31 +12,34 @@
     <div class="create-book">
         <div class="form-group">
             <label for="title">Title</label>
-           @Html.TextBoxFor(model => model.Title, new { placeholder = "Title" })
+           @Html.TextBoxFor(model => model.Title, new {@class="form-control", placeholder = "Title" })
         </div>
         <div class="form-group">
             <label for="author">Author</label>
-            @Html.TextBoxFor(model => model.Author, new { placeholder = "Author" })
+            @Html.TextBoxFor(model => model.Author, new { @class = "form-control", placeholder = "Author" })
         </div>
         <div class="form-group">
             <label for="price">Price</label>
-            @Html.TextBoxFor(model => model.Price, new { placeholder = "Price" })
+            @Html.TextBoxFor(model => model.Price, new { @class = "form-control", placeholder = "Price" })
         </div>
         <div class="form-group">
             <label for="barcode">Barcode</label>
-            @Html.TextBoxFor(model => model.Barcode, new { placeholder = "Barcode" })
+            @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control", placeholder = "Barcode" })
         </div>
-        <div class="form-group">
-            <label for="reorder">Reorder</label>
-            @Html.CheckBoxFor(model => model.Reorder, new { placeholder = "Reorder" })
+        <div class="checkbox">
+            <label for="reorder">
+                @Html.CheckBoxFor(model => model.Reorder, new {type = "checkbox", placeholder = "Reorder" })
+                Reorder
+            </label>
         </div>
         <div class="form-group">
             <label for="reorderamount">Reorder Amount</label>
-            @Html.TextBoxFor(model => model.ReorderAmount, new { placeholder = "Reorder Amount" })
+            @Html.TextBoxFor(model => model.ReorderAmount, new { @class = "form-control", placeholder = "Reorder Amount" })
         </div>
         <div class="form-group">
             <label for="numofstocks">Number Of Stocks</label>
-            @Html.TextBoxFor(model => model.NumOfStocks, new { placeholder = "Number Of Stocks" })
+            @Html.TextBoxFor(model => model.NumOfStocks, new { @class = "form-control", placeholder = "Number Of Stocks" })
         </div>
+        <input class="btn btn-primary" type="submit" value="Save" />
     </div>
 }

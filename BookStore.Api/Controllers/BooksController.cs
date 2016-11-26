@@ -58,6 +58,7 @@ namespace BookStore.Api.Controllers
                 }
                 _bookRepository.Add(newBook);
                 _unitOfWork.Commit();
+                
                 bookVm = Mapper.Map<BookViewModel>(newBook);
                 return Ok(bookVm);
             }

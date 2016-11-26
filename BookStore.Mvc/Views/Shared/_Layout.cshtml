@@ -13,8 +13,8 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-        @Html.Partial("_MainHeader")
-        @Html.Partial("_SideBar")
+        @{Html.RenderPartial("_MainHeader");}
+        @{Html.RenderPartial("_SideBar");}
         <div class="content-wrapper" style="min-height: 916px;">
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -33,7 +33,7 @@
             </section>
             <!-- /.content -->
         </div>
-        @Html.Partial("_MainFooter")
+        @{Html.RenderPartial("_MainFooter");}
        
         <div class="control-sidebar-bg" style="position: fixed; height: auto;"></div>
         @Scripts.Render("~/bundles/jquery")

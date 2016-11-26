@@ -19,7 +19,7 @@ namespace BookStore.Api.Mappings
         {
             CreateMap<Book, BookViewModel>()
                  .ForMember(vm => vm.Barcode, dm => dm.MapFrom(x => x.Stocks.Select(s => s.Barcode)))
-                 .ForMember(vm => vm.Reorder, dm => dm.MapFrom(x => x.Stocks.Select(s => s.Reorder)))
+                 .ForMember(vm => vm.Reorder, dm => dm.MapFrom(x => x.Stocks.Any(s => s.Reorder)))
                  .ForMember(vm => vm.ReorderAmount, dm => dm.MapFrom(x => x.Stocks.Select(s => s.ReorderAmount)));
         }
     }

@@ -11,11 +11,11 @@ namespace BookStore.Data.Entities
     {
         public int ID { get; set; }
 
-        public int? BookID { get; set; }
+        public int BookID { get; set; }
         
-        public int? Barcode { get; set; }
+        public int Barcode { get; set; }
 
-        public bool? Reorder { get; set; }
+        public bool Reorder { get; set; }
 
         public int? ReorderAmount { get; set; }
 
