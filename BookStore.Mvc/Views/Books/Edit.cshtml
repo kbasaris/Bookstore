@@ -1,18 +1,18 @@
 ﻿@model BookStore.Mvc.Models.BookViewModel
 
 @{
-    
-    ViewBag.Title = "Create Book";
+
+    ViewBag.Title = "Edit Book";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
-@using (Html.BeginForm("Create", "Books", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Books", FormMethod.Post))
 {
     <div class="create-book">
         <div class="form-group">
             <label for="title">Title</label>
-           @Html.TextBoxFor(model => model.Title, new {@class="form-control", style="width:300px", placeholder = "Title" })
+            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", style = "width:300px", placeholder = "Title" })
         </div>
         <div class="form-group">
             <label for="author">Author</label>
@@ -28,7 +28,7 @@
         </div>
         <div class="checkbox">
             <label for="reorder">
-                @Html.CheckBoxFor(model => model.Reorder, new {type = "checkbox", style = "width:300px", placeholder = "Reorder" })
+                @Html.CheckBoxFor(model => model.Reorder, new { type = "checkbox", style = "width:300px", placeholder = "Reorder" })
                 Reorder
             </label>
         </div>

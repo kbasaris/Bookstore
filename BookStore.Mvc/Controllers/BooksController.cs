@@ -14,9 +14,11 @@ namespace BookStore.Mvc.Controllers
     {
         HttpClient httpClient = new HttpClient();
         // GET: Books
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
+            var books = await rslt.Content.ReadAsAsync<IEnumerable<BookViewModel>>();
+            return View(books);
         }
 
         [HttpGet]
@@ -36,6 +38,34 @@ namespace BookStore.Mvc.Controllers
 
                 return View(book);
             }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Edit(int id)
+        {
+            var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_BY_ID_URL));
+            var book = await rslt.Content.ReadAsAsync<BookViewModel>();
+            return View(book);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(BookViewModel bookVm)
+        {
+            if (ModelState.IsValid)
+            {
+                var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.ADD_BOOK_URL), bookVm);
+                var book = await rslt.Content.ReadAsAsync<BookViewModel>();
+                httpClient.Dispose();
+
+                return View(book);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Delete(BookViewModel bookVm)
+        {
             return View();
         }
     }
