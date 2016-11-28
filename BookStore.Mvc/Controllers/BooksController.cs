@@ -44,7 +44,7 @@ namespace BookStore.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_BY_ID_URL));
+            var rslt = await httpClient.GetAsync(new Uri($"{Constants.GET_BOOK_BY_ID_URL}id={id}"));
             var book = await rslt.Content.ReadAsAsync<BookViewModel>();
             return View(book);
         }
@@ -54,7 +54,7 @@ namespace BookStore.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.ADD_BOOK_URL), bookVm);
+                var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.GET_BOOK_BY_ID_URL), bookVm);
                 var book = await rslt.Content.ReadAsAsync<BookViewModel>();
                 httpClient.Dispose();
 

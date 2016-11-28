@@ -14,7 +14,7 @@ namespace BookStore.Data
         }
 
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<Stock> Stocks { get; set; }
+        public virtual DbSet<Item> Stocks { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Error> Errors { get; set; }

@@ -7,22 +7,12 @@ using System.Data.Entity.Spatial;
 namespace BookStore.Data.Entities
 {
     [Table("Book")]
-    public partial class Book : IEntityBase
+    public class Book : IEntityBases
     {
-        public Book()
-        {
-            Stocks = new HashSet<Stock>();
-        }
-
         public int Id { get; set; }
-
         [StringLength(50)]
         public string Title { get; set; }
-
         [StringLength(50)]
         public string Author { get; set; }
-        public decimal? Price { get; set; }
-        public int? NumOfStocks { get; set; }
-        public virtual ICollection<Stock> Stocks { get; set; }
     }
 }

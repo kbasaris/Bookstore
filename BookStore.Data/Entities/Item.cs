@@ -6,19 +6,15 @@ using System.Data.Entity.Spatial;
 
 namespace BookStore.Data.Entities
 {
-    [Table("Stock")]
-    public partial class Stock
+    [Table("Item")]
+    public class Item : IEntityBases
     {
-        public int ID { get; set; }
-
+        public int Id { get; set; }
         public int BookID { get; set; }
-        
-        public int Barcode { get; set; }
-
         public bool Reorder { get; set; }
-
         public int? ReorderAmount { get; set; }
-
+        public decimal? Price { get; set; }
+        public int? NumOfStocks { get; set; }
         public virtual Book Book { get; set; }
     }
 }

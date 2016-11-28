@@ -11,6 +11,6 @@ namespace BookStore.Mvc.Helpers
         public const string REGISTER_URL = "http://localhost:50057/api/account/register";
         public const string ADD_BOOK_URL = "http://localhost:50057/api/books/add";
         public const string GET_BOOK_URL = "http://localhost:50057/api/books/getbooks";
-        public const string GET_BOOK_BY_ID_URL = "http://localhost:50057/api/books/getbyid";
+        public const string GET_BOOK_BY_ID_URL = "http://localhost:50057/api/books/getbyid?";
     }
 }

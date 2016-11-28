@@ -17,7 +17,10 @@ namespace BookStore.Api.Controllers
     public class BooksController : ApiController
     {
         private readonly IEntityBaseRepository<Book> _bookRepository;
+        private readonly IEntityBaseRepository<Item> _itemRepository;
         protected readonly IUnitOfWork  _unitOfWork;
+        
+
         public BooksController(IEntityBaseRepository<Book> bookRepository, IUnitOfWork unitOfWork)
         {
             _bookRepository = bookRepository;
@@ -26,15 +29,15 @@ namespace BookStore.Api.Controllers
         [Route("getbooks")]
         public IHttpActionResult GetBooks()
         {
-            
-            return Ok(_bookRepository.All);
+            var bookVm = Mapper.Map<IEnumerable<Item>, IEnumerable<BookViewModel>>(_itemRepository.All);
+            return Ok(bookVm);
         }
         [Route("getbyid")]
         public IHttpActionResult GetBookById(int id)
         {
-            return Ok(_bookRepository
-                                    .All
-                                    .SingleOrDefault(x => x.Id == id));
+            var book = _bookRepository.All.SingleOrDefault(x => x.Id == id);
+            var bookVm = Mapper.Map<Book,BookViewModel>(book);
+            return Ok(bookVm);
         }
 
         [HttpPost]
@@ -45,18 +48,18 @@ namespace BookStore.Api.Controllers
             {
                 Book newBook = new Book();
                 newBook.UpdateBook(bookVm);
-
-                for (int i = 0; i < bookVm.NumOfStocks; i++)
-                {
-                    Stock stock = new Stock
+                ;
+                Item stock = new Item
                     {
-                        Barcode = bookVm.Barcode,
+                        BookID = bookVm.Id,
                         ReorderAmount = bookVm.ReorderAmount,
                         Reorder = bookVm.Reorder,
-                        Book = newBook
+                        Book = newBook,
+                        Price = bookVm.Price,
+                        NumOfStocks = bookVm.NumOfStocks
                     };
-                }
                 _bookRepository.Add(newBook);
+                
                 _unitOfWork.Commit();
                 
                 bookVm = Mapper.Map<BookViewModel>(newBook);

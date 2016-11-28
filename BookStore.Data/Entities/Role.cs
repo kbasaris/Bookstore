@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data.Entities
 {
-    public class Role: IEntityBase
+    public class Role: IEntityBases
     {
         public int Id { get; set; }
         public string Name { get; set; }

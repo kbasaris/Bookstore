@@ -17,10 +17,9 @@ namespace BookStore.Api.Mappings
 
         public DomainToViewModelMappingProfile()
         {
-            CreateMap<Book, BookViewModel>()
-                 .ForMember(vm => vm.Barcode, dm => dm.MapFrom(x => x.Stocks.Select(s => s.Barcode)))
-                 .ForMember(vm => vm.Reorder, dm => dm.MapFrom(x => x.Stocks.Any(s => s.Reorder)))
-                 .ForMember(vm => vm.ReorderAmount, dm => dm.MapFrom(x => x.Stocks.Select(s => s.ReorderAmount)));
+            CreateMap<Item, BookViewModel>()
+                 .ForMember(vm => vm.NumOfStocks, dm => dm.MapFrom(x => x.Book.Author))
+                 .ForMember(vm => vm.NumOfStocks, dm => dm.MapFrom(x => x.Book.Title));
         }
     }
 }

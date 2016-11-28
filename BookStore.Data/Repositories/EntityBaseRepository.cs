@@ -9,7 +9,7 @@ using BookStore.Data.Entities;
 namespace BookStore.Data.Repositories
 {
     public class EntityBaseRepository<T> : IEntityBaseRepository<T>
-            where T : class, IEntityBase, new()
+            where T : class, IEntityBases, new()
     {
 
         private BookStoreDB dataContext;

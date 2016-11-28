@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data.Entities
 {
-    public interface IEntityBase
+    public interface IEntityBases
     {
         int Id { get; set; }
     }

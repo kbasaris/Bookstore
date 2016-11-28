@@ -9,6 +9,8 @@
 
 @using (Html.BeginForm("Create", "Books", FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.BookId)
+    @Html.HiddenFor(m => m.Id)
     <div class="create-book">
         <div class="form-group">
             <label for="title">Title</label>
@@ -21,10 +23,6 @@
         <div class="form-group">
             <label for="price">Price</label>
             @Html.TextBoxFor(model => model.Price, new { @class = "form-control", style = "width:300px", placeholder = "Price" })
-        </div>
-        <div class="form-group">
-            <label for="barcode">Barcode</label>
-            @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control", style = "width:300px", placeholder = "Barcode" })
         </div>
         <div class="checkbox">
             <label for="reorder">

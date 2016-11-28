@@ -13,8 +13,8 @@ namespace BookStore.Api.Infrastracture.Extensions
         {
             book.Title = bookVm.Title;
             book.Author = bookVm.Author;
-            book.Price = bookVm.Price;
-            book.NumOfStocks = bookVm.NumOfStocks;
+            //book.Price = bookVm.Price;
+            //book.NumOfStocks = bookVm.NumOfStocks;
         }
     }
 }

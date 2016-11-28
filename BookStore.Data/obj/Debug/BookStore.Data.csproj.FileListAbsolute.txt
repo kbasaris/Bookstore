@@ -45,3 +45,6 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.cs
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.pdb
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init4.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.changebook.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.changebook1.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.changebook2.resources
