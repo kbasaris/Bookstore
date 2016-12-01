@@ -21,8 +21,9 @@ namespace BookStore.Api.Controllers
         protected readonly IUnitOfWork  _unitOfWork;
         
 
-        public BooksController(IEntityBaseRepository<Book> bookRepository, IUnitOfWork unitOfWork)
+        public BooksController(IEntityBaseRepository<Book> bookRepository, IEntityBaseRepository<Item> itemRepository, IUnitOfWork unitOfWork)
         {
+            _itemRepository = itemRepository;
             _bookRepository = bookRepository;
             _unitOfWork = unitOfWork;
         }
@@ -42,28 +43,18 @@ namespace BookStore.Api.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IHttpActionResult Add(BookViewModel bookVm)
+        public IHttpActionResult Add(BookViewModel itemVm)
         {
             if (ModelState.IsValid)
             {
-                Book newBook = new Book();
-                newBook.UpdateBook(bookVm);
-                ;
-                Item stock = new Item
-                    {
-                        BookID = bookVm.Id,
-                        ReorderAmount = bookVm.ReorderAmount,
-                        Reorder = bookVm.Reorder,
-                        Book = newBook,
-                        Price = bookVm.Price,
-                        NumOfStocks = bookVm.NumOfStocks
-                    };
-                _bookRepository.Add(newBook);
+                var item = Mapper.Map<Item>(itemVm);
+                Book newBook = item.Book;
+                _itemRepository.Add(item);
                 
                 _unitOfWork.Commit();
-                
-                bookVm = Mapper.Map<BookViewModel>(newBook);
-                return Ok(bookVm);
+
+                itemVm = Mapper.Map<BookViewModel>(item);
+                return Ok(itemVm);
             }
             return BadRequest(ModelState);
         }

@@ -10,5 +10,6 @@
         public bool Reorder { get; set; }
         public int? ReorderAmount { get; set; }
         public int? NumOfStocks { get; set; }
+        public byte[] Image { get; set; }
     }
 }

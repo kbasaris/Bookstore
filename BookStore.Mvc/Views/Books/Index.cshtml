@@ -4,9 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<div class="content-wrapper">
-    <!-- Main content -->
-    <section class="content">
+
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
@@ -33,6 +31,7 @@
                                         <td>@item.Title</td>
                                         <td>@item.Price</td>
                                         <td>@item.NumOfStocks</td>
+                                        <td><img src="" />@item.Image</td>
                                         <td><a class="btn btn-primary" href="http://localhost:56986/Books/Edit/@item.Id">Edit</a></td>
                                     </tr>
                                 }
@@ -54,6 +53,3 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-    </section>
-    <!-- /.content -->
-</div>
