@@ -1,9 +1,10 @@
-﻿using BookStore.Api.Models;
+﻿using BookStore.Utilities.Models;
 using BookStore.Authentication;
 using BookStore.Authentication.Utilities;
 using BookStore.Data.Entities;
 using BookStore.Data.Infrastructure;
 using BookStore.Data.Repositories;
+using BookStore.Utilities.Models;
 using System.Linq;
 using System.Web.Http;
 

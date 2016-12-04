@@ -31,7 +31,6 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\bin\Debug\EntityFramework.d
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\bin\Debug\EntityFramework.xml
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csprojResolveAssemblyReference.cache
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init1.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.Error.resources
@@ -41,13 +40,13 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Mi
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.rename.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.rename1.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init3.resources
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csproj.GenerateResource.Cache
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.dll
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.pdb
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init4.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.changebook.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.changebook1.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.changebook2.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.changebook3.resources
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.image.resources
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.image1.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.ffff.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.image3.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csproj.GenerateResource.Cache
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.pdb

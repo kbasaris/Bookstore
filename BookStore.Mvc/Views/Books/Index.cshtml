@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookStore.Mvc.Models.BookViewModel>
+﻿@model IEnumerable<BookStore.Utilities.Models.BookViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -20,18 +20,20 @@
                                     <th>Title</th>
                                     <th>Price</th>
                                     <th>Number of Stocks</th>
+                                    <th>Image</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
+                                    var imgUrl = "data:image/jpeg;base64," + @item.ImageBase64;
                                     <tr>
                                         <td>@item.Author</td>
                                         <td>@item.Title</td>
                                         <td>@item.Price</td>
                                         <td>@item.NumOfStocks</td>
-                                        <td><img src="" />@item.Image</td>
+                                        <td><img style="width:40px" src="@imgUrl"/></td>
                                         <td><a class="btn btn-primary" href="http://localhost:56986/Books/Edit/@item.Id">Edit</a></td>
                                     </tr>
                                 }
@@ -42,6 +44,7 @@
                                     <th>Title</th>
                                     <th>Price</th>
                                     <th>Number of Stocks</th>
+                                    <th>Image</th>
                                 </tr>
                             </tfoot>
                         </table>

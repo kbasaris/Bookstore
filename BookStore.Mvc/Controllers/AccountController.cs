@@ -1,4 +1,4 @@
-﻿using BookStore.Mvc.Models;
+﻿using BookStore.Utilities.Models;
 using System.Net.Http;
 using BookStore.Mvc.Helpers;
 using System.Net.Http.Headers;
@@ -7,6 +7,8 @@ using System;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Threading;
+using BookStore.Utilities;
+using BookStore.Utilities.Models;
 
 namespace BookStore.Mvc.Controllers
 {

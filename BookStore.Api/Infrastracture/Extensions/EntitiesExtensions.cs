@@ -1,5 +1,6 @@
-﻿using BookStore.Api.Models;
+﻿using BookStore.Utilities.Models;
 using BookStore.Data.Entities;
+using BookStore.Utilities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

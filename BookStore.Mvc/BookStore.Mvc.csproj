@@ -143,10 +143,6 @@
     <Compile Include="Helpers\CustomAuthAttribute.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Helpers\HttpClientExtensions.cs" />
-    <Compile Include="Models\BookViewModel.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\RegistrationViewModel.cs" />
-    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +189,6 @@
     <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\index.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -239,6 +234,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BookStore.Utilities\BookStore.Utilities.csproj">
+      <Project>{ba6b535f-4c0d-4179-b208-8f6edcb4bebc}</Project>
+      <Name>BookStore.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

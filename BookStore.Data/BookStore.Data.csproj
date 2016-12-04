@@ -121,13 +121,13 @@
     <Compile Include="Migrations\201611290043502_changebook3.Designer.cs">
       <DependentUpon>201611290043502_changebook3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612012223050_image.cs" />
-    <Compile Include="Migrations\201612012223050_image.Designer.cs">
-      <DependentUpon>201612012223050_image.cs</DependentUpon>
+    <Compile Include="Migrations\201612031455289_ffff.cs" />
+    <Compile Include="Migrations\201612031455289_ffff.Designer.cs">
+      <DependentUpon>201612031455289_ffff.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612012258533_image1.cs" />
-    <Compile Include="Migrations\201612012258533_image1.Designer.cs">
-      <DependentUpon>201612012258533_image1.cs</DependentUpon>
+    <Compile Include="Migrations\201612032229061_image3.cs" />
+    <Compile Include="Migrations\201612032229061_image3.Designer.cs">
+      <DependentUpon>201612032229061_image3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,11 +187,11 @@
     <EmbeddedResource Include="Migrations\201611290043502_changebook3.resx">
       <DependentUpon>201611290043502_changebook3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612012223050_image.resx">
-      <DependentUpon>201612012223050_image.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612031455289_ffff.resx">
+      <DependentUpon>201612031455289_ffff.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612012258533_image1.resx">
-      <DependentUpon>201612012258533_image1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612032229061_image3.resx">
+      <DependentUpon>201612032229061_image3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

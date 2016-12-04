@@ -1,5 +1,5 @@
-﻿/// <reference path="jquery-2.2.3.js" />
-/// <autosync enabled="true" />
+﻿/// <autosync enabled="true" />
+/// <reference path="jquery-2.2.3.js" />
 /// <reference path="app.min.js" />
 /// <reference path="bootstrap.js" />
 /// <reference path="demo.js" />

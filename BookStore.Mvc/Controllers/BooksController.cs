@@ -1,7 +1,8 @@
 ﻿using BookStore.Mvc.Helpers;
-using BookStore.Mvc.Models;
+using BookStore.Utilities.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -18,6 +19,11 @@ namespace BookStore.Mvc.Controllers
         {
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
             var books = await rslt.Content.ReadAsAsync<IEnumerable<BookViewModel>>();
+            foreach (var book in books)
+            {
+                book.ImageBase64 = book.Image != null? @Convert.ToBase64String(book.Image) : "";
+            }
+           
             return View(books);
         }
 
@@ -28,10 +34,15 @@ namespace BookStore.Mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(BookViewModel bookVm)
+        public async Task<ActionResult> Create(BookViewModel bookVm,HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                MemoryStream target = new MemoryStream();
+                file.InputStream.CopyTo(target);
+                bookVm.Image = target.ToArray();
+                bookVm.ImageName = file.FileName;
+
                 var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.ADD_BOOK_URL), bookVm);
                 var book = await rslt.Content.ReadAsAsync<BookViewModel>();
                 httpClient.Dispose();
@@ -46,6 +57,7 @@ namespace BookStore.Mvc.Controllers
         {
             var rslt = await httpClient.GetAsync(new Uri($"{Constants.GET_BOOK_BY_ID_URL}id={id}"));
             var book = await rslt.Content.ReadAsAsync<BookViewModel>();
+            book.ImageBase64 = @Convert.ToBase64String(book.Image);
             return View(book);
         }
 

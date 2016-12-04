@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
-using BookStore.Api.Infrastracture.Extensions;
-using BookStore.Api.Models;
+using BookStore.Api.Infrastracture;
+using BookStore.Api.Mappings;
+using BookStore.Utilities.Models;
 using BookStore.Data.Entities;
 using BookStore.Data.Infrastructure;
 using BookStore.Data.Repositories;
-using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BookStore.Api.Controllers
@@ -16,6 +15,7 @@ namespace BookStore.Api.Controllers
     [RoutePrefix("api/books")]
     public class BooksController : ApiController
     {
+        private CustomMappings _customMappings = new CustomMappings();
         private readonly IEntityBaseRepository<Book> _bookRepository;
         private readonly IEntityBaseRepository<Item> _itemRepository;
         protected readonly IUnitOfWork  _unitOfWork;
@@ -30,7 +30,7 @@ namespace BookStore.Api.Controllers
         [Route("getbooks")]
         public IHttpActionResult GetBooks()
         {
-            var bookVm = Mapper.Map<IEnumerable<Item>, IEnumerable<BookViewModel>>(_itemRepository.All);
+            var bookVm = _customMappings.MapToIEnumerableOfBookVm(_itemRepository.All);
             return Ok(bookVm);
         }
         [Route("getbyid")]
@@ -47,16 +47,33 @@ namespace BookStore.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var item = Mapper.Map<Item>(itemVm);
+                var item = _customMappings.MapToItem(itemVm);
                 Book newBook = item.Book;
+                string pathForUpload =Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.UPLOAD_PATH), itemVm.ImageName);
+                newBook.Image = pathForUpload;
+                File.WriteAllBytes(pathForUpload, itemVm.Image);
                 _itemRepository.Add(item);
-                
                 _unitOfWork.Commit();
 
-                itemVm = Mapper.Map<BookViewModel>(item);
                 return Ok(itemVm);
             }
             return BadRequest(ModelState);
         }
+
+        [HttpPost]
+        [Route("add")]
+        public IHttpActionResult Edit(int Bookid)
+        {
+            if (ModelState.IsValid)
+            {
+                var item = _itemRepository.GetSingle(Bookid);
+                var bookVm = _customMappings.MapTobookVm(item);
+                bookVm.Image = File.ReadAllBytes(bookVm.ImageUrl);
+                return Ok(bookVm);
+            }
+            return BadRequest(ModelState);
+        }
+
+
     }
 }

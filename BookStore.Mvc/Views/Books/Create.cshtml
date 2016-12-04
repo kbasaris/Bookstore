@@ -1,5 +1,5 @@
-﻿@model BookStore.Mvc.Models.BookViewModel
-
+﻿@model BookStore.Utilities.Models.BookViewModel
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 @{
     
     ViewBag.Title = "Create Book";
@@ -7,10 +7,8 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create", "Books", FormMethod.Post))
+@using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.HiddenFor(m => m.BookId)
-    @Html.HiddenFor(m => m.Id)
     <div class="create-book">
         <div class="form-group">
             <label for="title">Title</label>
@@ -38,6 +36,20 @@
             <label for="numofstocks">Number Of Stocks</label>
             @Html.TextBoxFor(model => model.NumOfStocks, new { @class = "form-control", style = "width:300px", placeholder = "Number Of Stocks" })
         </div>
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input type="file" name="file" />
+        </div>
         <input style="width:100px" class="btn btn-primary" type="submit" value="Save" />
     </div>
 }
+
+<script>    
+    $(function(){
+    $("#Image").on("change", function () {
+        console.log($(this));
+    });
+    });
+</script>
+
+
