@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BookStore.Mvc.Helpers
+namespace BookStore.Utilities
 {
     public static class Constants
     {
@@ -12,5 +12,7 @@ namespace BookStore.Mvc.Helpers
         public const string ADD_BOOK_URL = "http://localhost:50057/api/books/add";
         public const string GET_BOOK_URL = "http://localhost:50057/api/books/getbooks";
         public const string GET_BOOK_BY_ID_URL = "http://localhost:50057/api/books/getbyid?";
+        public const string EDIT_BOOK = "http://localhost:50057/api/books/edit";
+        public const string DELETE_BOOK = "http://localhost:50057/api/books/delete?";
     }
 }

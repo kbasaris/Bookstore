@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Http;
+using BookStore.Api.Infrastracture.Extensions;
 
 namespace BookStore.Api.Controllers
 {
@@ -36,8 +37,8 @@ namespace BookStore.Api.Controllers
         [Route("getbyid")]
         public IHttpActionResult GetBookById(int id)
         {
-            var book = _bookRepository.All.SingleOrDefault(x => x.Id == id);
-            var bookVm = Mapper.Map<Book,BookViewModel>(book);
+            var item = _itemRepository.All.SingleOrDefault(x => x.Id == id);
+            var bookVm = _customMappings.MapTobookVm(item);
             return Ok(bookVm);
         }
 
@@ -61,19 +62,36 @@ namespace BookStore.Api.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
-        public IHttpActionResult Edit(int Bookid)
+        [Route("edit")]
+        public IHttpActionResult Edit(BookViewModel bookVm)
         {
             if (ModelState.IsValid)
             {
-                var item = _itemRepository.GetSingle(Bookid);
-                var bookVm = _customMappings.MapTobookVm(item);
-                bookVm.Image = File.ReadAllBytes(bookVm.ImageUrl);
-                return Ok(bookVm);
+                var item = _itemRepository.GetSingle(bookVm.Id);
+                item.UpdateItem(bookVm);
+                _itemRepository.Edit(item);
+                var newBookVm = _customMappings.MapTobookVm(item);
+                newBookVm.Image = string.IsNullOrEmpty(bookVm.ImageUrl) ? null : File.ReadAllBytes(bookVm.ImageUrl);
+                _unitOfWork.Commit();
+                return Ok(newBookVm);
             }
             return BadRequest(ModelState);
         }
 
+
+        [HttpDelete]
+        [Route("delete")]
+        public IHttpActionResult Delete(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var item = _itemRepository.GetSingle(id);
+                _itemRepository.Delete(item);
+                _unitOfWork.Commit();
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
 
     }
 }

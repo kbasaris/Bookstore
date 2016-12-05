@@ -8,8 +8,11 @@ namespace BookStore.Utilities.Models
     {
         public int Id { get; set; }
         public int BookId { get; set; }
+        [Required(ErrorMessage = "You have to provide a Title")]
         public string Title { get; set; }
+        [Required(ErrorMessage = "You have to provide a Author")]
         public string Author { get; set; }
+        [Required(ErrorMessage = "You have to provide a Price")]
         public decimal? Price { get; set; }
         public bool Reorder { get; set; }
         public int? ReorderAmount { get; set; }

@@ -1,4 +1,5 @@
 ﻿using BookStore.Mvc.Helpers;
+using BookStore.Utilities;
 using BookStore.Utilities.Models;
 using System;
 using System.Collections.Generic;
@@ -38,11 +39,13 @@ namespace BookStore.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                MemoryStream target = new MemoryStream();
-                file.InputStream.CopyTo(target);
-                bookVm.Image = target.ToArray();
-                bookVm.ImageName = file.FileName;
-
+                if (file.ContentLength > 0)
+                {
+                    MemoryStream target = new MemoryStream();
+                    file.InputStream.CopyTo(target);
+                    bookVm.Image = target.ToArray();
+                    bookVm.ImageName = file.FileName;
+                }
                 var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.ADD_BOOK_URL), bookVm);
                 var book = await rslt.Content.ReadAsAsync<BookViewModel>();
                 httpClient.Dispose();
@@ -57,28 +60,52 @@ namespace BookStore.Mvc.Controllers
         {
             var rslt = await httpClient.GetAsync(new Uri($"{Constants.GET_BOOK_BY_ID_URL}id={id}"));
             var book = await rslt.Content.ReadAsAsync<BookViewModel>();
-            book.ImageBase64 = @Convert.ToBase64String(book.Image);
+            if (book.Image != null)
+            {
+                book.ImageBase64 = @Convert.ToBase64String(book.Image);
+            }
             return View(book);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(BookViewModel bookVm)
+        public async Task<ActionResult> Edit(BookViewModel bookVm,HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.GET_BOOK_BY_ID_URL), bookVm);
-                var book = await rslt.Content.ReadAsAsync<BookViewModel>();
+                if (file.ContentLength > 0)
+                {
+                    MemoryStream target = new MemoryStream();
+                    file.InputStream.CopyTo(target);
+                    bookVm.Image = target.ToArray();
+                    bookVm.ImageName = file.FileName;
+                }
+
+                var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.EDIT_BOOK), bookVm);
+                var newBookVm = await rslt.Content.ReadAsAsync<BookViewModel>();
                 httpClient.Dispose();
 
-                return View(book);
+                return View(newBookVm);
             }
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Delete(BookViewModel bookVm)
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var rslt = await httpClient.DeleteAsync(new Uri($"{Constants.DELETE_BOOK}id={id}"));
+            var newBookVm = await rslt.Content.ReadAsAsync<BookViewModel>();
+            httpClient.Dispose();
+
+            return RedirectToAction("Index","Books");
         }
+
+        [HttpGet]
+        public async Task<JsonResult> ShowImage()
+        {
+           
+
+            return new JsonResult { Data = }
+        }
+
     }
 }

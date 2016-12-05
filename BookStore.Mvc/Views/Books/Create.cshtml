@@ -8,7 +8,8 @@
 <h2>Create</h2>
 
 @using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+{ 
+    @Html.ValidationSummary()
     <div class="create-book">
         <div class="form-group">
             <label for="title">Title</label>
@@ -45,11 +46,18 @@
 }
 
 <script>    
-    $(function(){
-    $("#Image").on("change", function () {
-        console.log($(this));
-    });
-    });
+    $(function () {
+        var fr = new FileReader();
+        $("#Image").on("change", function () {
+            var files = $(this).files;
+            if (FileReader && files && files.length) {
+                fr.readAsArrayBuffer(files[0]);
+                fr.onload = function () {
+                    var imageData = fr.result;
+                };
+                }
+            });
+        });
 </script>
 
 

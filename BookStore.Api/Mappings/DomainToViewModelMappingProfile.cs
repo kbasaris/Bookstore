@@ -16,6 +16,7 @@ namespace BookStore.Api.Mappings
             CreateMap<Item, BookViewModel>()
                   .ForMember(vm => vm.Author, dm => dm.MapFrom(x => x.Book.Author))
                   .ForMember(vm => vm.Title, dm => dm.MapFrom(x => x.Book.Title))
+                  .ForMember(vm => vm.BookId, dm => dm.MapFrom(x => x.Book.Id))
                   .ForMember(vm => vm.ImageUrl, dm => dm.Ignore())
                   .ForMember(vm => vm.Image, dm => dm.Ignore())
                   .ForMember(vm => vm.ImageName, dm => dm.Ignore());

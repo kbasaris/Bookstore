@@ -31,6 +31,8 @@ namespace BookStore.Api.Mappings
             bookVm.Author = item.Book.Author;
             bookVm.Title = item.Book.Title;
             bookVm.ImageUrl= item.Book.Image;
+            bookVm.BookId = item.Book.Id;
+            bookVm.Id = item.Id;
             bookVm.NumOfStocks = item.NumOfStocks;
             bookVm.Price = item.Price;
             bookVm.Reorder = item.Reorder;
@@ -38,21 +40,23 @@ namespace BookStore.Api.Mappings
 
             return bookVm;
         }
-        public IEnumerable<BookViewModel> MapToIEnumerableOfBookVm(IEnumerable<Item> itemVms)
+        public IEnumerable<BookViewModel> MapToIEnumerableOfBookVm(IEnumerable<Item> items)
         {
             List<BookViewModel> newBookVms = new List<BookViewModel>();
-            foreach (var itemVm in itemVms)
+            foreach (var item in items)
             {
                 BookViewModel bookVm = new BookViewModel();
-                bookVm.Author = itemVm.Book.Author;
-                bookVm.Title = itemVm.Book.Title;
-                bookVm.ImageUrl = itemVm.Book.Image;
-                bookVm.ImageName = !string.IsNullOrEmpty(itemVm.Book.Image) ? Path.GetFileName(itemVm.Book.Image) : "";
-                bookVm.Image = GetImageInBytes(itemVm.Book.Image);
-                bookVm.NumOfStocks = itemVm.NumOfStocks;
-                bookVm.Price = itemVm.Price;
-                bookVm.Reorder = itemVm.Reorder;
-                bookVm.ReorderAmount = itemVm.ReorderAmount;
+                bookVm.Author = item.Book.Author;
+                bookVm.Title = item.Book.Title;
+                bookVm.ImageUrl = item.Book.Image;
+                bookVm.BookId = item.Book.Id;
+                bookVm.Id = item.Id;
+                bookVm.ImageName = !string.IsNullOrEmpty(item.Book.Image) ? Path.GetFileName(item.Book.Image) : "";
+                bookVm.Image = GetImageInBytes(item.Book.Image);
+                bookVm.NumOfStocks = item.NumOfStocks;
+                bookVm.Price = item.Price;
+                bookVm.Reorder = item.Reorder;
+                bookVm.ReorderAmount = item.ReorderAmount;
                 newBookVms.Add(bookVm);
             }
 
