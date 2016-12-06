@@ -99,12 +99,10 @@ namespace BookStore.Mvc.Controllers
             return RedirectToAction("Index","Books");
         }
 
-        [HttpGet]
-        public async Task<JsonResult> ShowImage()
+        [HttpPost]
+        public async Task<JsonResult> ShowImage(byte[] imageData)
         {
-           
-
-            return new JsonResult { Data = }
+            return new JsonResult { Data = imageData };
         }
 
     }
