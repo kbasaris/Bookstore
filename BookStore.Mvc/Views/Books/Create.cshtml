@@ -1,19 +1,19 @@
 ﻿@model BookStore.Utilities.Models.BookViewModel
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 @{
-    
     ViewBag.Title = "Create Book";
 }
+
 
 <h2>Create</h2>
 
 @using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{ 
+{
     @Html.ValidationSummary()
+    @Html.HiddenFor(m => m.ImageBase64)
     <div class="create-book">
         <div class="form-group">
             <label for="title">Title</label>
-           @Html.TextBoxFor(model => model.Title, new {@class="form-control", style="width:300px", placeholder = "Title" })
+            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", style = "width:300px", placeholder = "Title" })
         </div>
         <div class="form-group">
             <label for="author">Author</label>
@@ -25,7 +25,7 @@
         </div>
         <div class="checkbox">
             <label for="reorder">
-                @Html.CheckBoxFor(model => model.Reorder, new {type = "checkbox", style = "width:300px", placeholder = "Reorder" })
+                @Html.CheckBoxFor(model => model.Reorder, new { type = "checkbox", style = "width:300px", placeholder = "Reorder" })
                 Reorder
             </label>
         </div>
@@ -38,44 +38,27 @@
             @Html.TextBoxFor(model => model.NumOfStocks, new { @class = "form-control", style = "width:300px", placeholder = "Number Of Stocks" })
         </div>
         <div class="form-group">
-            <label for="Image">Image</label>
-            <img id="imgBase64"/>
-            <input type="file" id="file" name="file" />
+            <div>
+                <label for="Image">Image</label>
+                <input type="file" id="file" name="file" />
+            </div>
+        </div>
+        @{
+            string imgUrl = "data:image/jpeg;base64,";
+            if (Model != null && !string.IsNullOrEmpty(Model.ImageBase64))
+            {
+                imgUrl += Model.ImageBase64;
+            }
+
+        }
+        <div class="image-container">
+            <img src="@imgUrl" id="imgBase64" />
         </div>
         <input style="width:100px" class="btn btn-primary" type="submit" value="Save" />
     </div>
+
 }
 
-<script>    
-    $(function () {
-        var fr = new FileReader();
-        $("#file").on("change", function () {
-            var files = $("#file")[0].files;
-            if (FileReader && files && files.length) {
-                fr.readAsArrayBuffer(files[0]);
-                console.log(fr.result);
-                fr.onload = function () {
-                    var binary = '';
-                    console.log(fr.result);
-                    var imageData = new Uint8Array(fr.result);
-                    binary = btoa(Uint8ToString(imageData));
-                   
-                    binary = "data:image/jpeg;base64," + binary
-                    alert(binary);
-                    $("#imgBase64").prop("src",binary)
-                };
-              }
-        });
 
-        function Uint8ToString(u8a) {
-            var CHUNK_SZ = 0x8000;
-            var c = [];
-            for (var i = 0; i < u8a.length; i += CHUNK_SZ) {
-                c.push(String.fromCharCode.apply(null, u8a.subarray(i, i + CHUNK_SZ)));
-            }
-            return c.join("");
-        }
-        });
-</script>
 
 

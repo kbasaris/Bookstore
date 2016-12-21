@@ -1,9 +1,10 @@
-﻿@model IEnumerable<BookStore.Utilities.Models.BookViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
 
+@model IPagedList<BookStore.Utilities.Models.BookViewModel>
 @{
     ViewBag.Title = "Index";
 }
-
 
         <div class="row">
             <div class="col-xs-12">
@@ -59,3 +60,8 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
+
+
+<div class="div-pagination">
+    @Html.PagedListPager(Model,page => Url.Action("Index",new {page = page}))
+</div>

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Utilities.Models
 {
-    public class BookViewModel 
+    public class BookViewModel : SortAndPage
     {
         public int Id { get; set; }
         public int BookId { get; set; }

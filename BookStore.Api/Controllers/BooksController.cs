@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Http;
 using BookStore.Api.Infrastracture.Extensions;
+using System;
 
 namespace BookStore.Api.Controllers
 {
@@ -44,19 +45,19 @@ namespace BookStore.Api.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IHttpActionResult Add(BookViewModel itemVm)
+        public IHttpActionResult Add(BookViewModel bookVm)
         {
             if (ModelState.IsValid)
             {
-                var item = _customMappings.MapToItem(itemVm);
+                var item = _customMappings.MapToItem(bookVm);
                 Book newBook = item.Book;
-                string pathForUpload =Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.UPLOAD_PATH), itemVm.ImageName);
+                string pathForUpload =Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.UPLOAD_PATH), bookVm.ImageName);
                 newBook.Image = pathForUpload;
-                File.WriteAllBytes(pathForUpload, itemVm.Image);
+                File.WriteAllBytes(pathForUpload, Convert.FromBase64String(bookVm.ImageBase64));
                 _itemRepository.Add(item);
                 _unitOfWork.Commit();
 
-                return Ok(itemVm);
+                return Ok(bookVm);
             }
             return BadRequest(ModelState);
         }
@@ -68,9 +69,13 @@ namespace BookStore.Api.Controllers
             if (ModelState.IsValid)
             {
                 var item = _itemRepository.GetSingle(bookVm.Id);
+                string pathForUpload = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.UPLOAD_PATH), bookVm.ImageName);
+                bookVm.ImageUrl = pathForUpload;
+                File.WriteAllBytes(pathForUpload, Convert.FromBase64String(bookVm.ImageBase64));
                 item.UpdateItem(bookVm);
                 _itemRepository.Edit(item);
                 var newBookVm = _customMappings.MapTobookVm(item);
+
                 newBookVm.Image = string.IsNullOrEmpty(bookVm.ImageUrl) ? null : File.ReadAllBytes(bookVm.ImageUrl);
                 _unitOfWork.Commit();
                 return Ok(newBookVm);

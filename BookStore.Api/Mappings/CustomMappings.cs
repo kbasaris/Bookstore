@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using BookStore.Api.Infrastracture.Extensions;
 
 namespace BookStore.Api.Mappings
 {
@@ -31,6 +32,7 @@ namespace BookStore.Api.Mappings
             bookVm.Author = item.Book.Author;
             bookVm.Title = item.Book.Title;
             bookVm.ImageUrl= item.Book.Image;
+            bookVm.Image = string.IsNullOrEmpty(item.Book.Image) ? null : File.ReadAllBytes(item.Book.Image);
             bookVm.BookId = item.Book.Id;
             bookVm.Id = item.Id;
             bookVm.NumOfStocks = item.NumOfStocks;
@@ -52,7 +54,7 @@ namespace BookStore.Api.Mappings
                 bookVm.BookId = item.Book.Id;
                 bookVm.Id = item.Id;
                 bookVm.ImageName = !string.IsNullOrEmpty(item.Book.Image) ? Path.GetFileName(item.Book.Image) : "";
-                bookVm.Image = GetImageInBytes(item.Book.Image);
+                bookVm.Image = string.IsNullOrEmpty(item.Book.Image) ? null : File.ReadAllBytes(item.Book.Image);
                 bookVm.NumOfStocks = item.NumOfStocks;
                 bookVm.Price = item.Price;
                 bookVm.Reorder = item.Reorder;
@@ -61,14 +63,6 @@ namespace BookStore.Api.Mappings
             }
 
             return newBookVms;
-        }
-        public byte[] GetImageInBytes(string path)
-        {
-            if (!string.IsNullOrEmpty(path))
-            {
-               return File.ReadAllBytes(path);
-            }
-            return null;
         }
     }
 }

@@ -112,3 +112,7 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\zh-CN\FluentValidation.r
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.csprojResolveAssemblyReference.cache
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.pdb
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\PagedList.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\PagedList.Mvc.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\PagedList.xml
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\PagedList.Mvc.xml

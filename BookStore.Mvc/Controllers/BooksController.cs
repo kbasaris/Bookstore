@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace BookStore.Mvc.Controllers
 {
@@ -16,16 +17,24 @@ namespace BookStore.Mvc.Controllers
     {
         HttpClient httpClient = new HttpClient();
         // GET: Books
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
             var books = await rslt.Content.ReadAsAsync<IEnumerable<BookViewModel>>();
+            var pagedListBook = books.ToPagedList(pageNumber, pageSize);
             foreach (var book in books)
             {
                 book.ImageBase64 = book.Image != null? @Convert.ToBase64String(book.Image) : "";
             }
            
-            return View(books);
+            return View(pagedListBook);
+        }
+
+        public async Task<ActionResult> Home()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -39,7 +48,7 @@ namespace BookStore.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0)
                 {
                     MemoryStream target = new MemoryStream();
                     file.InputStream.CopyTo(target);
@@ -52,7 +61,7 @@ namespace BookStore.Mvc.Controllers
 
                 return View(book);
             }
-            return View();
+            return RedirectToAction("Index", "Books");
         }
 
         [HttpGet]
@@ -72,7 +81,7 @@ namespace BookStore.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0)
                 {
                     MemoryStream target = new MemoryStream();
                     file.InputStream.CopyTo(target);
@@ -84,7 +93,7 @@ namespace BookStore.Mvc.Controllers
                 var newBookVm = await rslt.Content.ReadAsAsync<BookViewModel>();
                 httpClient.Dispose();
 
-                return View(newBookVm);
+                return RedirectToAction("Index", "Books");
             }
             return View();
         }
