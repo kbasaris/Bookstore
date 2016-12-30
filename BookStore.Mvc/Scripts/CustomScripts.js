@@ -30,4 +30,21 @@
         }
         return c.join("");
     }
+
+
+    $(".ratingStar").click(function () {
+        clickedFlag = true;
+        $(".ratingStar").unbind("mouseout mouseover click").css("cursor", "default");
+
+        var url = "/Home/SendRating?r=" + $(this).attr("data-value") + "&s=5&id=@Model&url=@url";
+        $.post(url, null, function (data) {
+            $("#lblResult").html(data);
+        });
+    });
+    $("#lblResult").ajaxStart(function () {
+        $("#lblResult").html("Processing ....");
+    });
+    $("#lblResult").ajaxError(function () {
+        $("#lblResult").html("<br />Error occured.");
+    });
 });

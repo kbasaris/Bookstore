@@ -1,4 +1,9 @@
-﻿<link href="~/Content/custom.min.css" rel="stylesheet">
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BookStore.Utilities.Models.BookViewModel>
+
+<link href="~/Content/custom.min.css" rel="stylesheet">
 
 <div class="row">
     <div class="col-md-12">
@@ -22,31 +27,40 @@
 
                     <div class="clearfix"></div>
 
+                    @foreach (var item in @Model)
+                    {
+
+
                     <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
                         <div class="well profile_view">
                             <div class="col-sm-12">
-                                <h4 class="brief"><i>Digital Strategist</i></h4>
+                                <h4 class="brief"><i>@item.Title</i></h4>
                                 <div class="left col-xs-7">
-                                    <h2>Nicole Pearson</h2>
-                                    <p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                                    <h2>@item.Author</h2>
+                                    @*<p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>*@
                                     <ul class="list-unstyled">
-                                        <li><i class="fa fa-building"></i> Address: </li>
-                                        <li><i class="fa fa-phone"></i> Phone #: </li>
+                                        <li><i class="fa fa-money"></i> @item.Price </li>
+                                        <li><i class="fa fa-money"></i> @item.NumOfStocks </li>
                                     </ul>
                                 </div>
                                 <div class="right col-xs-5 text-center">
-                                    <img src="images/img.jpg" alt="" class="img-circle img-responsive">
+                                    
+                                    @{string imgUrl = "data:image/jpeg;base64,";
+                                        imgUrl += string.IsNullOrEmpty(@item.ImageBase64) ? "" : @item.ImageBase64;
+                                    }
+
+                                    <img src="@imgUrl" alt="" class="img-circle img-responsive">
                                 </div>
                             </div>
                             <div class="col-xs-12 bottom text-center">
                                 <div class="col-xs-12 col-sm-6 emphasis">
                                     <p class="ratings">
                                         <a>4.0</a>
-                                        <a href="#"><span class="fa fa-star"></span></a>
-                                        <a href="#"><span class="fa fa-star"></span></a>
-                                        <a href="#"><span class="fa fa-star"></span></a>
-                                        <a href="#"><span class="fa fa-star"></span></a>
-                                        <a href="#"><span class="fa fa-star-o"></span></a>
+                                        <a href="#"><span class="ratingStar fa fa-star"></span></a>
+                                        <a href="#"><span class="ratingStar fa fa-star"></span></a>
+                                        <a href="#"><span class="ratingStar fa fa-star"></span></a>
+                                        <a href="#"><span class="ratingStar fa fa-star"></span></a>
+                                        <a href="#"><span class="ratingStar fa fa-star-o"></span></a>
                                     </p>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 emphasis">
@@ -55,14 +69,19 @@
                                         </i> <i class="fa fa-comments-o"></i>
                                     </button>
                                     <button type="button" class="btn btn-primary btn-xs">
-                                        <i class="fa fa-user"> </i> View Profile
+                                        <i class="fa fa-user"> </i> View Details
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    }
+
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="div-pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Home", new { page = page }))
 </div>

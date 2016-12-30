@@ -129,6 +129,14 @@
     <Compile Include="Migrations\201612032229061_image3.Designer.cs">
       <DependentUpon>201612032229061_image3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612222140019_rating.cs" />
+    <Compile Include="Migrations\201612222140019_rating.Designer.cs">
+      <DependentUpon>201612222140019_rating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612222142193_rating1.cs" />
+    <Compile Include="Migrations\201612222142193_rating1.Designer.cs">
+      <DependentUpon>201612222142193_rating1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
@@ -192,6 +200,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612032229061_image3.resx">
       <DependentUpon>201612032229061_image3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612222140019_rating.resx">
+      <DependentUpon>201612222140019_rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612222142193_rating1.resx">
+      <DependentUpon>201612222142193_rating1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,6 +15,8 @@ namespace BookStore.Data.Entities
         [StringLength(50)]
         public string Author { get; set; }
         public string Image { get; set; }
+        public int Rating { get; set; }
+        public int TotalRaters { get; set; }
         public List<Item> Stocks { get; set; }
     }
 }

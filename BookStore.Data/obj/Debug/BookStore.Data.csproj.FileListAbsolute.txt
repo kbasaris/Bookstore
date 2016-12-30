@@ -50,3 +50,6 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Mi
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csproj.GenerateResource.Cache
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.pdb
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csprojResolveAssemblyReference.cache
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.rating.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.rating1.resources

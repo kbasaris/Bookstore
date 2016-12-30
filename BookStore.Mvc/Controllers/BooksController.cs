@@ -32,9 +32,31 @@ namespace BookStore.Mvc.Controllers
             return View(pagedListBook);
         }
 
-        public async Task<ActionResult> Home()
+        public async Task<ActionResult> Home(int? page)
         {
-            return View();
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
+            var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
+            var books = await rslt.Content.ReadAsAsync<IEnumerable<BookViewModel>>();
+            var pagedListBook = books.ToPagedList(pageNumber, pageSize);
+            foreach (var book in books)
+            {
+                book.ImageBase64 = book.Image != null ? @Convert.ToBase64String(book.Image) : "";
+            }
+
+            return View(pagedListBook);
+        }
+        [HttpPost]
+        public async Task<JsonResult> SendRating(RateViewModel rateVm)
+        { 
+
+            var rslt = await httpClient.GetAsync(new Uri($"{Constants.GET_BOOK_BY_ID_URL}id={rateVm.BookId}"));
+            var book = await rslt.Content.ReadAsAsync<BookViewModel>();
+
+            HttpCookie cookie = new HttpCookie(Convert.ToString(book.BookId), "true");
+            Response.Cookies.Add(cookie);
+
+            return new JsonResult();
         }
 
         [HttpGet]
