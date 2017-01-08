@@ -53,3 +53,6 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.pd
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csprojResolveAssemblyReference.cache
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.rating.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.rating1.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.shoppingCart1.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.shoppingCart2.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.shoppingCart4.resources

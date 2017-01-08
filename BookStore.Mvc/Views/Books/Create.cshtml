@@ -2,63 +2,70 @@
 @{
     ViewBag.Title = "Create Book";
 }
+<section class="content-header">
+    <h1>
+        Page Header
+        <small>Optional description</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
+    </ol>
+</section>
+<div class="x_panel">
+    <h2>Create</h2>
 
-
-<h2>Create</h2>
-
-@using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary()
-    @Html.HiddenFor(m => m.ImageBase64)
-    <div class="create-book">
-        <div class="form-group">
-            <label for="title">Title</label>
-            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", style = "width:300px", placeholder = "Title" })
-        </div>
-        <div class="form-group">
-            <label for="author">Author</label>
-            @Html.TextBoxFor(model => model.Author, new { @class = "form-control", style = "width:300px", placeholder = "Author" })
-        </div>
-        <div class="form-group">
-            <label for="price">Price</label>
-            @Html.TextBoxFor(model => model.Price, new { @class = "form-control", style = "width:300px", placeholder = "Price" })
-        </div>
-        <div class="checkbox">
-            <label for="reorder">
-                @Html.CheckBoxFor(model => model.Reorder, new { type = "checkbox", style = "width:300px", placeholder = "Reorder" })
-                Reorder
-            </label>
-        </div>
-        <div class="form-group">
-            <label for="reorderamount">Reorder Amount</label>
-            @Html.TextBoxFor(model => model.ReorderAmount, new { @class = "form-control", style = "width:300px", placeholder = "Reorder Amount" })
-        </div>
-        <div class="form-group">
-            <label for="numofstocks">Number Of Stocks</label>
-            @Html.TextBoxFor(model => model.NumOfStocks, new { @class = "form-control", style = "width:300px", placeholder = "Number Of Stocks" })
-        </div>
-        <div class="form-group">
-            <div>
-                <label for="Image">Image</label>
-                <input type="file" id="file" name="file" />
+    @using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(m => m.ImageBase64)
+        <div class="create-book">
+            <div class="form-group">
+                <label for="title">Title</label>
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", style = "width:300px", placeholder = "Title" })
             </div>
-        </div>
-        @{
-            string imgUrl = "data:image/jpeg;base64,";
-            if (Model != null && !string.IsNullOrEmpty(Model.ImageBase64))
-            {
-                imgUrl += Model.ImageBase64;
+            <div class="form-group">
+                <label for="author">Author</label>
+                @Html.TextBoxFor(model => model.Author, new { @class = "form-control", style = "width:300px", placeholder = "Author" })
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                @Html.TextBoxFor(model => model.Price, new { @class = "form-control", style = "width:300px", placeholder = "Price" })
+            </div>
+            <div class="checkbox">
+                <label for="reorder">
+                    @Html.CheckBoxFor(model => model.Reorder, new { type = "checkbox", style = "width:300px", placeholder = "Reorder" })
+                    Reorder
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="reorderamount">Reorder Amount</label>
+                @Html.TextBoxFor(model => model.ReorderAmount, new { @class = "form-control", style = "width:300px", placeholder = "Reorder Amount" })
+            </div>
+            <div class="form-group">
+                <label for="numofstocks">Number Of Stocks</label>
+                @Html.TextBoxFor(model => model.NumOfStocks, new { @class = "form-control", style = "width:300px", placeholder = "Number Of Stocks" })
+            </div>
+            <div class="form-group">
+                <div>
+                    <label for="Image">Image</label>
+                    <input type="file" id="file" name="file" />
+                </div>
+            </div>
+            @{
+                string imgUrl = "data:image/jpeg;base64,";
+                if (Model != null && !string.IsNullOrEmpty(Model.ImageBase64))
+                {
+                    imgUrl += Model.ImageBase64;
+                }
+
             }
-
-        }
-        <div class="image-container">
-            <img src="@imgUrl" id="imgBase64" />
+            <div class="image-container">
+                <img src="@imgUrl" id="imgBase64" />
+            </div>
+            <input style="width:100px" class="btn btn-primary" type="submit" value="Save" />
         </div>
-        <input style="width:100px" class="btn btn-primary" type="submit" value="Save" />
-    </div>
 
-}
+                }
 
-
-
-
+</div>

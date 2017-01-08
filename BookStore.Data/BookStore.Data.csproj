@@ -58,6 +58,9 @@
     <Compile Include="Entities\Book.cs" />
     <Compile Include="BookStore.cs" />
     <Compile Include="Entities\Error.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderDetail.cs" />
+    <Compile Include="Entities\ShoppingCart.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Entities\IEntityBase.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
@@ -137,6 +140,18 @@
     <Compile Include="Migrations\201612222142193_rating1.Designer.cs">
       <DependentUpon>201612222142193_rating1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701072229441_shoppingCart1.cs" />
+    <Compile Include="Migrations\201701072229441_shoppingCart1.Designer.cs">
+      <DependentUpon>201701072229441_shoppingCart1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701072230386_shoppingCart2.cs" />
+    <Compile Include="Migrations\201701072230386_shoppingCart2.Designer.cs">
+      <DependentUpon>201701072230386_shoppingCart2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701072247414_shoppingCart4.cs" />
+    <Compile Include="Migrations\201701072247414_shoppingCart4.Designer.cs">
+      <DependentUpon>201701072247414_shoppingCart4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
@@ -206,6 +221,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612222142193_rating1.resx">
       <DependentUpon>201612222142193_rating1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701072229441_shoppingCart1.resx">
+      <DependentUpon>201701072229441_shoppingCart1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701072230386_shoppingCart2.resx">
+      <DependentUpon>201701072230386_shoppingCart2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701072247414_shoppingCart4.resx">
+      <DependentUpon>201701072247414_shoppingCart4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

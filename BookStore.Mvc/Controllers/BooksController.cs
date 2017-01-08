@@ -47,14 +47,14 @@ namespace BookStore.Mvc.Controllers
             return View(pagedListBook);
         }
         [HttpPost]
-        public async Task<JsonResult> SendRating(RateViewModel rateVm)
+        public async Task<JsonResult> SendRating()
         { 
 
-            var rslt = await httpClient.GetAsync(new Uri($"{Constants.GET_BOOK_BY_ID_URL}id={rateVm.BookId}"));
-            var book = await rslt.Content.ReadAsAsync<BookViewModel>();
+            //var rslt = await httpClient.GetAsync(new Uri($"{Constants.GET_BOOK_BY_ID_URL}id={rateVm.BookId}"));
+            //var book = await rslt.Content.ReadAsAsync<BookViewModel>();
 
-            HttpCookie cookie = new HttpCookie(Convert.ToString(book.BookId), "true");
-            Response.Cookies.Add(cookie);
+            //HttpCookie cookie = new HttpCookie(Convert.ToString(book.BookId), "true");
+            //Response.Cookies.Add(cookie);
 
             return new JsonResult();
         }

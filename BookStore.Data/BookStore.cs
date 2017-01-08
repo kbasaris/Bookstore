@@ -19,7 +19,9 @@ namespace BookStore.Data
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
-
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetail { get; set; }
         public virtual void Commit()
         {
             base.SaveChanges();
