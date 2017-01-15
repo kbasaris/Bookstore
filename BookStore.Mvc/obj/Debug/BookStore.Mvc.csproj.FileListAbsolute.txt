@@ -116,3 +116,9 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\PagedList.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\PagedList.Mvc.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\PagedList.xml
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\PagedList.Mvc.xml
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\BookStore.Data.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\EntityFramework.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\BookStore.Data.pdb
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\EntityFramework.xml
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\EntityFramework.SqlServer.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\EntityFramework.SqlServer.xml

@@ -47,6 +47,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,6 +62,7 @@
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderDetail.cs" />
     <Compile Include="Entities\ShoppingCart.cs" />
+    <Compile Include="Extensions\CartExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Entities\IEntityBase.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
@@ -152,6 +154,14 @@
     <Compile Include="Migrations\201701072247414_shoppingCart4.Designer.cs">
       <DependentUpon>201701072247414_shoppingCart4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701080152389_shoppingCart5.cs" />
+    <Compile Include="Migrations\201701080152389_shoppingCart5.Designer.cs">
+      <DependentUpon>201701080152389_shoppingCart5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701092310463_shoppingcart6.cs" />
+    <Compile Include="Migrations\201701092310463_shoppingcart6.Designer.cs">
+      <DependentUpon>201701092310463_shoppingcart6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
@@ -230,6 +240,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701072247414_shoppingCart4.resx">
       <DependentUpon>201701072247414_shoppingCart4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701080152389_shoppingCart5.resx">
+      <DependentUpon>201701080152389_shoppingCart5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701092310463_shoppingcart6.resx">
+      <DependentUpon>201701092310463_shoppingcart6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

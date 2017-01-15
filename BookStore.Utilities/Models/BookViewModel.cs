@@ -21,6 +21,7 @@ namespace BookStore.Utilities.Models
         public string ImageUrl { get; set; }
         public string ImageBase64 { get; set; }
         public string ImageName { get; set; }
-       
+        public int UserId { get; set; }
+
     }
 }

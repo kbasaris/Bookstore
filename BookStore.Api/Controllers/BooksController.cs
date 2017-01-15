@@ -32,6 +32,7 @@ namespace BookStore.Api.Controllers
         [Route("getbooks")]
         public IHttpActionResult GetBooks()
         {
+
             var bookVm = _customMappings.MapToIEnumerableOfBookVm(_itemRepository.All);
             return Ok(bookVm);
         }

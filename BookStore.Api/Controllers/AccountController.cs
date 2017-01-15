@@ -42,6 +42,8 @@ namespace HomeCinema.Web.Controllers
                         Username = _userContext.User.Username,
                         UserRoles = _userContext.User.UserRoles.Select(x => x.RoleId).ToList()
                     };
+                    //Session.Add("userId", userInfo.UserId);
+                    //Session.Add("username", userInfo.Username);
                     return Ok(userInfo);
                 }
                 else
@@ -71,6 +73,8 @@ namespace HomeCinema.Web.Controllers
                         Username = _user.Username,
                         UserRoles = _user.UserRoles.Select(x => x.RoleId).ToList()
                     };
+                    //Session.Add("userId", userInfo.UserId);
+                    //Session.Add("username", userInfo.Username);
                     return Ok(userInfo);
                 }
                 else

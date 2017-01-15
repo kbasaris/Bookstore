@@ -79,7 +79,7 @@
                                     </p>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 emphasis">
-                                    <button type="button" class="btn btn-success btn-xs">
+                                    <button  onclick="location.href='@Url.Action("AddToCart", "ShoppingCart",new {itemId =  item.Id})'" type="button" class="btn btn-success btn-xs">
                                         <i class="fa fa-user">
                                         </i> <i class="fa fa-comments-o"></i>
                                     </button>

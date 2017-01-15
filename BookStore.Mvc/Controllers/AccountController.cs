@@ -1,14 +1,8 @@
 ﻿using BookStore.Utilities.Models;
 using System.Net.Http;
-using BookStore.Mvc.Helpers;
-using System.Net.Http.Headers;
-using System.Collections.Generic;
 using System;
-using System.Web.Http;
 using System.Web.Mvc;
-using System.Threading;
 using BookStore.Utilities;
-using BookStore.Utilities.Models;
 
 namespace BookStore.Mvc.Controllers
 {
@@ -33,7 +27,7 @@ namespace BookStore.Mvc.Controllers
             var userInfo = rslt.Content.ReadAsAsync<UserInfo>().Result;
 
             Session.Add("userId", userInfo.UserId);
-            Session.Add("username", userInfo.UserId);
+            Session.Add("username", userInfo.Username);
 
 
             foreach (var item in userInfo.UserRoles)
@@ -62,7 +56,7 @@ namespace BookStore.Mvc.Controllers
             var userInfo = rslt.Content.ReadAsAsync<UserInfo>().Result;
 
             Session.Add("userId", userInfo.UserId);
-            Session.Add("username", userInfo.UserId);
+            Session.Add("username", userInfo.Username);
 
 
             foreach (var item in userInfo.UserRoles)
