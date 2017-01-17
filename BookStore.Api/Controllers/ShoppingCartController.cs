@@ -31,8 +31,14 @@ namespace BookStore.Api.Controllers
             _itemRepository = itemRepository;
             _unitOfWork = unitOfWork;
         }
-
-        public ShoppingCartDto GetCartDto()
+        public int GetCount()
+        {
+            int? count = (from cartItems in _shoppingCart.All
+                          where cartItems.CartId == "4"
+                          select (int?)cartItems.TotalItems).Sum();
+            return count ?? 0;
+        }
+        public ShoppingCartListDto GetCartDto()
         {
             string cartId = "4";// Convert.ToString(HttpContext.Current.Session["userId"]);
             var cartItems = new List<CartItemDto>();
@@ -40,23 +46,22 @@ namespace BookStore.Api.Controllers
             int itemIdTemp = 0;
             foreach (var cart in carts)
             {
-                if (itemIdTemp != cart.ItemId)
+                cartItems.Add(new CartItemDto
                 {
-                    cartItems.Add(new CartItemDto
-                    {
-                        Title = cart.Item.Book.Title,
-                        Author = cart.Item.Book.Author,
-                        Price = cart.Item.Price,
-                        Quantity = carts.Count(x => x.ItemId == cart.ItemId)
-                    });
-                    itemIdTemp = cart.ItemId;
-                }
+                    Title = cart.Item.Book.Title,
+                    Author = cart.Item.Book.Author,
+                    Price = cart.Item.Price,
+                    Quantity = carts.Count(x => x.ItemId == cart.ItemId),
+                    RecordId = cart.Id,
+                });
+                itemIdTemp = cart.ItemId;
             }
-            var cartDto = new ShoppingCartDto()
+            var cartDto = new ShoppingCartListDto()
             {
                 UserId = cartId,
                 CartItems = cartItems,
-                CartTotal = 15
+                CartTotal = 15,
+                Count = GetCount()
             };
             return cartDto;
         }
@@ -74,38 +79,59 @@ namespace BookStore.Api.Controllers
         public IHttpActionResult AddToCart(string itemId)
         {
             int itemIdd = Convert.ToInt32(itemId);
-            ShoppingCartDto cartDto = null;
+            ShoppingCartListDto cartDto = null;
             if (itemIdd != 0)
             {
                 var item = _itemRepository.All.SingleOrDefault(x => x.Id == itemIdd);
                 if (item != null)
                 {
-                   var bookVm = _customMappings.MapTobookVm(item);
+                    var bookVm = _customMappings.MapTobookVm(item);
                     var cart = _shoppingCart.All.SingleOrDefault(x => x.Item.BookID == bookVm.BookId);
 
                     if (cart == null)
                     {
                         cart = new ShoppingCart
                         {
-                            UserId = bookVm.UserId,
+                            UserId = 4,
                             TotalItems = 1,
                             DateCreated = DateTime.Now,
                             ItemId = bookVm.BookId
                         };
                         _shoppingCart.Add(cart);
-                        _unitOfWork.Commit();
-                       
                     }
                     else
                     {
                         cart.TotalItems++;
                     }
                 }
+                _unitOfWork.Commit();
             }
             cartDto = GetCartDto();
             return Ok(cartDto);
-
         }
 
+        [Route("removefromcart")]
+        [HttpPost]
+        public IHttpActionResult RemoveFromCart(string cartItemId)
+        {
+            try
+            {
+                var cartItem = _shoppingCart.All.Single(p => p.Id == Convert.ToInt32(cartItemId));
+                _shoppingCart.Delete(cartItem);
+                _unitOfWork.Commit();
+                var removeFromCartDto = new RemoveFromCartDto
+                {
+                    Message = "The item has been removed successfully",
+                    DeleteId = Convert.ToInt32(cartItemId),
+                    CartTotal = 15,
+                    ItemCount = GetCount()
+                };
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
     }
 }

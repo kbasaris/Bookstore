@@ -51,7 +51,8 @@
     <Compile Include="Models\FileUploadResult.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegistrationViewModel.cs" />
-    <Compile Include="Models\ShoppingCartDto.cs" />
+    <Compile Include="Models\RemoveFromCartDto.cs" />
+    <Compile Include="Models\ShoppingCartListDto.cs" />
     <Compile Include="Models\ShoppingCartRemoveDto.cs" />
     <Compile Include="Models\SortAndPage.cs" />
     <Compile Include="Models\UserInfo.cs" />

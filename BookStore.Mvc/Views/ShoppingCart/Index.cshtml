@@ -1,4 +1,4 @@
-﻿@model BookStore.Utilities.Models.ShoppingCartDto
+﻿@model BookStore.Utilities.Models.ShoppingCartListDto
 
 <script type="text/javascript">
     $(function () {
@@ -35,6 +35,7 @@
                                 <td>@item.Price</td>
                                 <td>@item.Quantity</td>
                                 <td></td>
+                                <td><a class="btn btn-danger" id="btnRemoveCart" data-id="@item.RecordId">Delete</a></td>
                             </tr>
                         }
                     </tbody>

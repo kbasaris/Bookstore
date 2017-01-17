@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace BookStore.Utilities.Models
 {
-    public class ShoppingCartDto
+    public class ShoppingCartListDto
     {
             public string UserId { get; set; }
             public List<CartItemDto> CartItems { get; set; }
             public decimal CartTotal { get; set; }
+            public int Count { get; set; }
     }
 }

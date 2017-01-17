@@ -18,7 +18,7 @@ namespace BookStore.Mvc.Controllers
         public async Task<ActionResult> Index()
         {
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_CART_URL));
-            var cart = await rslt.Content.ReadAsAsync<ShoppingCartDto>();
+            var cart = await rslt.Content.ReadAsAsync<ShoppingCartListDto>();
             HttpCookie aCookie = Response.Cookies.Get("cart");
             if (aCookie != null)
             {
@@ -35,20 +35,28 @@ namespace BookStore.Mvc.Controllers
         public async Task<ActionResult> AddToCart(int itemId)
         {
             var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.ADD_TO_CART_URL}{itemId}"),Convert.ToString(itemId));
-            var cart = await rslt.Content.ReadAsAsync<ShoppingCartDto>();
+            var cart = await rslt.Content.ReadAsAsync<ShoppingCartListDto>();
 
            HttpCookie aCookie = Response.Cookies.Get("cart");
            if (aCookie != null)
             {
-                aCookie.Values["CartItems"] = Convert.ToString(cart.CartItems.Count);
+                aCookie.Values["CartItems"] = Convert.ToString(cart.Count);
             }
             else
             {
                 aCookie = new HttpCookie("cart");
-                aCookie.Values["CartItems"] = Convert.ToString(cart.CartItems.Count);
+                aCookie.Values["CartItems"] = Convert.ToString(cart.Count);
             }
            
             return RedirectToAction("Home","Books");
+        }
+
+        public async Task<JsonResult> RemoveFromCart(int cartItemId)
+        {
+            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.REMOVE_FROM_CART_URL}{cartItemId}"), Convert.ToString(cartItemId));
+            var cart = await rslt.Content.ReadAsAsync<RemoveFromCartDto>();
+
+            return new JsonResult { Data = cart };
         }
     }
 }

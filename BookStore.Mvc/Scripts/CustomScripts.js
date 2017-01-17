@@ -12,7 +12,6 @@
                 console.log(fr.result);
                 var imageData = new Uint8Array(fr.result);
                 base64 = btoa(Uint8ToString(imageData));
-
                 base64WithPrefix = "data:image/jpeg;base64," + base64
                 //alert(binary);
                 $("#imgBase64").prop("src", base64WithPrefix)
@@ -48,8 +47,32 @@
         $("#lblResult").html("<br />Error occured.");
     });
 
-    $("#shoppingcart").va("")
-    getCookie("cart");
+    $("#btnRemoveCart").click(function () {
+        // Get the id from the link
+        var recordToDelete = $(this).attr("data-id");
+
+        if (recordToDelete != '') {
+
+            // Perform the ajax post
+            $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
+                function (data) {
+                    // Successful requests get here
+                    // Update the page elements
+                    if (data.ItemCount == 0) {
+                        $('#row-' + data.DeleteId).fadeOut('slow');
+                    } else {
+                        $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                    }
+
+                    $('#cart-total').text(data.CartTotal);
+                    $('#update-message').text(data.Message);
+                    $('#cart-status').text('Cart (' + data.CartCount + ')');
+                });
+        }
+    });
+        console.log(1);
+        $("#shoppingcart p").html("Cart("+getCookie("cart")+")");
+    
 
     function getCookie(cname) {
         var name = cname + "=";
@@ -61,11 +84,11 @@
                 c = c.substring(1);
             }
             if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
+               var cookie = c.substring(name.length, c.length);
+               return cookie.substring(10, cookie.length)
             }
         }
         return "";
     }
-
 
 });

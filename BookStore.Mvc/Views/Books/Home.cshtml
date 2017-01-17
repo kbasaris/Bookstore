@@ -4,16 +4,13 @@
 @model IPagedList<BookStore.Utilities.Models.BookViewModel>
 
 <link href="~/Content/custom.min.css" rel="stylesheet">
-
+<script src="~/Scripts/CustomScripts.js"></script>
 <section class="content-header">
     <h1>
         Page Header
         <small>Optional description</small>
     </h1>
-    <div class="cart-icon">
-        <strong>1</strong>
-        <span class="cart-icon-handle"></span>
-    </div>
+    <button id="testbtn"></button>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">Here</li>
@@ -100,3 +97,7 @@
 <div class="div-pagination">
     @Html.PagedListPager(Model, page => Url.Action("Home", new { page = page }))
 </div>
+
+<script>
+   
+</script>

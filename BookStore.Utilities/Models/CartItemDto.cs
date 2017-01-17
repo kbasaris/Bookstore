@@ -12,5 +12,6 @@ namespace BookStore.Utilities.Models
         public string Author { get; set; }
         public decimal? Price { get; set; }
         public int Quantity { get; set; }
+        public int RecordId { get; set; }
     }
 }
