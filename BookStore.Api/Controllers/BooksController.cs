@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using BookStore.Api.Infrastracture;
+﻿using BookStore.Api.Infrastracture;
 using BookStore.Api.Mappings;
 using BookStore.Utilities.Models;
 using BookStore.Data.Entities;
 using BookStore.Data.Infrastructure;
 using BookStore.Data.Repositories;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Http;
@@ -15,6 +13,7 @@ using System;
 namespace BookStore.Api.Controllers
 {
     [RoutePrefix("api/books")]
+    [Authorize]
     public class BooksController : ApiController
     {
         private CustomMappings _customMappings = new CustomMappings();
@@ -33,14 +32,14 @@ namespace BookStore.Api.Controllers
         public IHttpActionResult GetBooks()
         {
 
-            var bookVm = _customMappings.MapToIEnumerableOfBookVm(_itemRepository.All);
+            var bookVm = _customMappings.MapToIEnumerableOfBookVm(_bookRepository.All);
             return Ok(bookVm);
         }
         [Route("getbyid")]
         public IHttpActionResult GetBookById(int id)
         {
-            var item = _itemRepository.All.SingleOrDefault(x => x.Id == id);
-            var bookVm = _customMappings.MapTobookVm(item);
+            var book = _bookRepository.All.SingleOrDefault(x => x.Id == id);
+            var bookVm = _customMappings.MapTobookVm(book);
             return Ok(bookVm);
         }
 
@@ -55,7 +54,22 @@ namespace BookStore.Api.Controllers
                 string pathForUpload =Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.UPLOAD_PATH), bookVm.ImageName);
                 newBook.Image = pathForUpload;
                 File.WriteAllBytes(pathForUpload, Convert.FromBase64String(bookVm.ImageBase64));
-                _itemRepository.Add(item);
+
+                for (var i = 0; i<= bookVm.NumOfStocks;i++)
+                {
+                    var newItem = new Item {
+                        Book = newBook,
+                        BookID = newBook.Id,
+                        NumOfStocks = bookVm.NumOfStocks,
+                        Price = bookVm.Price,
+                        Reorder = bookVm.Reorder,
+                        ReorderAmount = bookVm.ReorderAmount };
+
+                    newBook.Stocks.Add(newItem);
+                }
+                _bookRepository.Add(newBook);
+
+
                 _unitOfWork.Commit();
 
                 return Ok(bookVm);
@@ -69,13 +83,15 @@ namespace BookStore.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var item = _itemRepository.GetSingle(bookVm.Id);
+                var book = _bookRepository.GetSingle(bookVm.BookId);
                 string pathForUpload = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(Constants.UPLOAD_PATH), bookVm.ImageName);
                 bookVm.ImageUrl = pathForUpload;
                 File.WriteAllBytes(pathForUpload, Convert.FromBase64String(bookVm.ImageBase64));
-                item.UpdateItem(bookVm);
-                _itemRepository.Edit(item);
-                var newBookVm = _customMappings.MapTobookVm(item);
+                book.UpdateBook(bookVm);
+                _bookRepository.Edit(book);
+
+
+                var newBookVm = _customMappings.MapTobookVm(book);
 
                 newBookVm.Image = string.IsNullOrEmpty(bookVm.ImageUrl) ? null : File.ReadAllBytes(bookVm.ImageUrl);
                 _unitOfWork.Commit();

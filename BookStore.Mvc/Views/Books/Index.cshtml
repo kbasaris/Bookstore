@@ -26,18 +26,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @foreach (var book in Model)
                                 {
                                     string imgUrl = "data:image/jpeg;base64,";
-                                    imgUrl +=  string.IsNullOrEmpty(@item.ImageBase64) ? "" : @item.ImageBase64;
+                                    imgUrl +=  string.IsNullOrEmpty(@book.ImageBase64) ? "" : @book.ImageBase64;
                                     <tr>
-                                        <td>@item.Author</td>
-                                        <td>@item.Title</td>
-                                        <td>@item.Price</td>
-                                        <td>@item.NumOfStocks</td>
+                                        <td>@book.Author</td>
+                                        <td>@book.Title</td>
+                                        <td>@book.Price</td>
+                                        <td>@book.NumOfStocks</td>
                                         <td><img style="width:40px" src="@imgUrl"/></td>
-                                        <td><a class="btn btn-primary" href="http://localhost:56986/Books/Edit/@item.Id">Edit</a>
-                                            <a class="btn btn-danger" href="http://localhost:56986/Books/Delete/@item.Id">Delete</a>
+                                        <td><a class="btn btn-primary" href="http://localhost:56986/Books/Edit/@book.BookId">Edit</a>
+                                            <a class="btn btn-danger" href="http://localhost:56986/Books/Delete/@book.BookId">Delete</a>
                                         </td>
                                     </tr>
                                 }

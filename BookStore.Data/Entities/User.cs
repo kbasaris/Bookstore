@@ -7,7 +7,7 @@ using System.Data.Entity.Spatial;
 namespace BookStore.Data.Entities
 {
     [Table("User")]
-    public class User : IEntityBases
+    public class User : IEntityBase
     {
         public int Id { get; set; }
 

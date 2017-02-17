@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data.Entities
 {
-    public class OrderDetail : IEntityBases
+    public class OrderDetail : IEntityBase
     {
         public int Id { get; set; }
         public int OrderId { get; set; }

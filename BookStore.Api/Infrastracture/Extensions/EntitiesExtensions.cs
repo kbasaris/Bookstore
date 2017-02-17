@@ -20,5 +20,12 @@ namespace BookStore.Api.Infrastracture.Extensions
             item.Reorder = bookVm.Reorder;
             item.ReorderAmount = bookVm.ReorderAmount;
         }
+
+        public static void UpdateBook(this Book book, BookViewModel bookVm)
+        {
+            book.Author = bookVm.Author;
+            book.Image = bookVm.ImageUrl;
+            book.Title = bookVm.Title;
+        }
     }
 }

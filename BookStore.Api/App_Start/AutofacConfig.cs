@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Autofac.Integration.WebApi;
-using BookStore.Authentication;
 using BookStore.Data;
 using BookStore.Data.Infrastructure;
 using BookStore.Data.Repositories;
@@ -49,14 +48,6 @@ namespace BookStore.Api
                    .As(typeof(IEntityBaseRepository<>))
                    .InstancePerRequest();
 
-            // Services
-            builder.RegisterType<EncryptionService>()
-                .As<IEncryptionService>()
-                .InstancePerRequest();
-
-            builder.RegisterType<MembershipService>()
-                .As<IMembershipService>()
-                .InstancePerRequest();
 
             Container = builder.Build();
 

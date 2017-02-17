@@ -26,39 +26,39 @@ namespace BookStore.Api.Mappings
 
             return item;
         }
-        public BookViewModel MapTobookVm(Item item)
+        public BookViewModel MapTobookVm(Book book)
         {
             BookViewModel bookVm = new BookViewModel();
-            bookVm.Author = item.Book.Author;
-            bookVm.Title = item.Book.Title;
-            bookVm.ImageUrl= item.Book.Image;
-            bookVm.Image = string.IsNullOrEmpty(item.Book.Image) ? null : File.ReadAllBytes(item.Book.Image);
-            bookVm.BookId = item.Book.Id;
-            bookVm.Id = item.Id;
-            bookVm.NumOfStocks = item.NumOfStocks;
-            bookVm.Price = item.Price;
-            bookVm.Reorder = item.Reorder;
-            bookVm.ReorderAmount = item.ReorderAmount;
+            bookVm.Author = book.Author;
+            bookVm.Title = book.Title;
+            bookVm.ImageUrl= book.Image;
+            bookVm.Image = string.IsNullOrEmpty(book.Image) ? null : File.ReadAllBytes(book.Image);
+            bookVm.BookId = book.Id;
+            bookVm.Stocks = book.Stocks;
+            bookVm.NumOfStocks = book.Stocks.Count();
+            bookVm.Price = book.Stocks.Select(x => x.Price).FirstOrDefault();
+            bookVm.Reorder = book.Stocks.Select(x => x.Reorder).FirstOrDefault();
+            bookVm.ReorderAmount = book.Stocks.Select(x => x.ReorderAmount).FirstOrDefault();
 
             return bookVm;
         }
-        public IEnumerable<BookViewModel> MapToIEnumerableOfBookVm(IEnumerable<Item> items)
+        public IEnumerable<BookViewModel> MapToIEnumerableOfBookVm(IEnumerable<Book> books)
         {
             List<BookViewModel> newBookVms = new List<BookViewModel>();
-            foreach (var item in items)
+            foreach (var book in books)
             {
                 BookViewModel bookVm = new BookViewModel();
-                bookVm.Author = item.Book.Author;
-                bookVm.Title = item.Book.Title;
-                bookVm.ImageUrl = item.Book.Image;
-                bookVm.BookId = item.Book.Id;
-                bookVm.Id = item.Id;
-                bookVm.ImageName = !string.IsNullOrEmpty(item.Book.Image) ? Path.GetFileName(item.Book.Image) : "";
-                bookVm.Image = string.IsNullOrEmpty(item.Book.Image) ? null : File.ReadAllBytes(item.Book.Image);
-                bookVm.NumOfStocks = item.NumOfStocks;
-                bookVm.Price = item.Price;
-                bookVm.Reorder = item.Reorder;
-                bookVm.ReorderAmount = item.ReorderAmount;
+                bookVm.Author = book.Author;
+                bookVm.Title = book.Title;
+                bookVm.ImageUrl = book.Image;
+                bookVm.BookId = book.Id;
+                bookVm.ImageName = !string.IsNullOrEmpty(book.Image) ? Path.GetFileName(book.Image) : "";
+                bookVm.Image = string.IsNullOrEmpty(book.Image) ? null : File.ReadAllBytes(book.Image);
+                bookVm.NumOfStocks = book.Stocks.Count();
+                bookVm.Stocks = book.Stocks;
+                bookVm.Price = book.Stocks.Select(x => x.Price).FirstOrDefault();
+                bookVm.Reorder = book.Stocks.Select(x => x.Reorder).FirstOrDefault();
+                bookVm.ReorderAmount = book.Stocks.Select(x => x.ReorderAmount).FirstOrDefault();
                 newBookVms.Add(bookVm);
             }
 

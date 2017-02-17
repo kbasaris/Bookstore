@@ -1,88 +1,240 @@
-﻿using BookStore.Utilities.Models;
-using BookStore.Authentication;
-using BookStore.Authentication.Utilities;
-using BookStore.Data.Entities;
-using BookStore.Data.Infrastructure;
-using BookStore.Data.Repositories;
-using BookStore.Utilities.Models;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OAuth;
+using BookStore.Api.Models;
+using BookStore.Api.Providers;
+using BookStore.Api.Results;
+using Microsoft.Owin;
+using System.Security.Principal;
 
-namespace HomeCinema.Web.Controllers
+namespace BookStore.Api.Controllers
 {
-    // [Authorize(Roles = "Admin")]
-    [RoutePrefix("api/account")]
+    [Authorize]
+    [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private readonly IMembershipService _membershipService;
-        private readonly IEntityBaseRepository<Error> _errorsRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private const string LocalLoginProvider = "Local";
+        private ApplicationUserManager _userManager;
 
-        public AccountController(IMembershipService membershipService,
-            IEntityBaseRepository<Error> errorsRepository, IUnitOfWork unitOfWork)
+        public AccountController()
         {
-            _membershipService = membershipService;
         }
 
-        [AllowAnonymous]
-        [Route("authenticate")]
-        [HttpPost]
-        public IHttpActionResult Login(LoginViewModel user)
+        public AccountController(ApplicationUserManager userManager,
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
+            UserManager = userManager;
+            AccessTokenFormat = accessTokenFormat;
+        }
 
-            if (ModelState.IsValid)
+
+        public ApplicationUserManager UserManager
+        {
+            get
             {
-                MembershipContext _userContext = _membershipService.ValidateUser(user.Username, user.Password);
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
-                if (_userContext.User != null)
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
+        // GET api/Account/UserInfo
+       
+
+        // POST api/Account/Logout
+        [Route("Logout")]
+        public IHttpActionResult Logout()
+        {
+            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return Ok();
+        }
+
+        // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
+        [Route("ManageInfo")]
+        public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
+
+            foreach (IdentityUserLogin linkedAccount in user.Logins)
+            {
+                logins.Add(new UserLoginInfoViewModel
                 {
-                    UserInfo userInfo = new UserInfo
+                    LoginProvider = linkedAccount.LoginProvider,
+                    ProviderKey = linkedAccount.ProviderKey
+                });
+            }
+
+            if (user.PasswordHash != null)
+            {
+                logins.Add(new UserLoginInfoViewModel
+                {
+                    LoginProvider = LocalLoginProvider,
+                    ProviderKey = user.UserName,
+                });
+            }
+
+            return new ManageInfoViewModel
+            {
+                LocalLoginProvider = LocalLoginProvider,
+                Email = user.UserName,
+                Logins = logins,
+            };
+        }
+
+        // POST api/Account/ChangePassword
+        [Route("ChangePassword")]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+                model.NewPassword);
+            
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/SetPassword
+        [Route("SetPassword")]
+        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/Register
+        [AllowAnonymous]
+        [Route("Register")]
+        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }
+
+            base.Dispose(disposing);
+        }
+
+        #region Helpers
+
+        private IAuthenticationManager Authentication
+        {
+            get { return Request.GetOwinContext().Authentication; }
+        }
+
+        private IHttpActionResult GetErrorResult(IdentityResult result)
+        {
+            if (result == null)
+            {
+                return InternalServerError();
+            }
+
+            if (!result.Succeeded)
+            {
+                if (result.Errors != null)
+                {
+                    foreach (string error in result.Errors)
                     {
-                        UserId = _userContext.User.Id,
-                        Username = _userContext.User.Username,
-                        UserRoles = _userContext.User.UserRoles.Select(x => x.RoleId).ToList()
-                    };
-                    //Session.Add("userId", userInfo.UserId);
-                    //Session.Add("username", userInfo.Username);
-                    return Ok(userInfo);
+                        ModelState.AddModelError("", error);
+                    }
                 }
-                else
+
+                if (ModelState.IsValid)
                 {
+                    // No ModelState errors are available to send, so just return an empty BadRequest.
                     return BadRequest();
                 }
-            }
-            else
-                return BadRequest();
 
+                return BadRequest(ModelState);
+            }
+
+            return null;
         }
 
-        [AllowAnonymous]
-        [Route("register")]
-        [HttpPost]
-        public IHttpActionResult Register(RegistrationViewModel user)
+     
+        private static class RandomOAuthStateGenerator
         {
-            if (ModelState.IsValid)
-            {
-                User _user = _membershipService.CreateUser(user.Username, user.Email, user.Password, new int[] { 1 });
+            private static RandomNumberGenerator _random = new RNGCryptoServiceProvider();
 
-                if (_user != null)
+            public static string Generate(int strengthInBits)
+            {
+                const int bitsPerByte = 8;
+
+                if (strengthInBits % bitsPerByte != 0)
                 {
-                    UserInfo userInfo = new UserInfo
-                    {
-                        UserId = _user.Id,
-                        Username = _user.Username,
-                        UserRoles = _user.UserRoles.Select(x => x.RoleId).ToList()
-                    };
-                    //Session.Add("userId", userInfo.UserId);
-                    //Session.Add("username", userInfo.Username);
-                    return Ok(userInfo);
+                    throw new ArgumentException("strengthInBits must be evenly divisible by 8.", "strengthInBits");
                 }
-                else
-                {
-                    return BadRequest();
-                }
+
+                int strengthInBytes = strengthInBits / bitsPerByte;
+
+                byte[] data = new byte[strengthInBytes];
+                _random.GetBytes(data);
+                return HttpServerUtility.UrlTokenEncode(data);
             }
-            return BadRequest();
         }
+
+        #endregion
     }
+
 }

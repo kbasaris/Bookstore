@@ -3,10 +3,12 @@ using System.Net.Http;
 using System;
 using System.Web.Mvc;
 using BookStore.Utilities;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace BookStore.Mvc.Controllers
 {
-   
+
     public class AccountController : Controller
     {
         HttpClient httpClient = new HttpClient();
@@ -19,25 +21,29 @@ namespace BookStore.Mvc.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-            var rslt = httpClient.PostAsJsonAsync(new Uri(Constants.LOGIN_URL), loginViewModel).Result;
+            var formContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("grant_type", "password"),
+                new KeyValuePair<string, string>("username", loginViewModel.Username),
+                new KeyValuePair<string, string>("password", loginViewModel.Password)
+            });
+            //grant_type=password&username=k.asharis@gmail.com&password=Abc@123
+            var rslt = httpClient.PostAsync(new Uri(Constants.LOGIN_URL), formContent).Result;
             ViewBag.loginRslt = rslt.IsSuccessStatusCode;
             if (!rslt.IsSuccessStatusCode)
                 return View();
 
-            var userInfo = rslt.Content.ReadAsAsync<UserInfo>().Result;
+            var userInfo = rslt.Content.ReadAsStringAsync().Result;
+            JToken token = JObject.Parse(userInfo);
+            string accessToken = Convert.ToString(token.SelectToken("access_token"));
+            string username = Convert.ToString(token.SelectToken("userName"));
 
-            Session.Add("userId", userInfo.UserId);
-            Session.Add("username", userInfo.Username);
+            Session.Add("username", username);
+            Session.Add("accessToken", accessToken);
 
-
-            foreach (var item in userInfo.UserRoles)
-            {
-                int i = 1;
-                Session.Add("userRole"+i++, userInfo.UserId);
-            }
             httpClient.Dispose();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Books");
         }
 
         public ActionResult Register()
@@ -46,28 +52,16 @@ namespace BookStore.Mvc.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult Register(RegistrationViewModel loginViewModel)
+        public ActionResult Register(RegisterBindingModel loginViewModel)
         {
             var rslt = httpClient.PostAsJsonAsync(new Uri(Constants.REGISTER_URL), loginViewModel).Result;
             ViewBag.loginRslt = rslt.IsSuccessStatusCode;
             if (!rslt.IsSuccessStatusCode)
                 return View();
 
-            var userInfo = rslt.Content.ReadAsAsync<UserInfo>().Result;
-
-            Session.Add("userId", userInfo.UserId);
-            Session.Add("username", userInfo.Username);
-
-
-            foreach (var item in userInfo.UserRoles)
-            {
-                int i = 1;
-                Session.Add("userRole" + i++, userInfo.UserId);
-            }
             httpClient.Dispose();
-           
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
     }

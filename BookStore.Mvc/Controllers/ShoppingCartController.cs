@@ -1,4 +1,5 @@
 ﻿using BookStore.Data.Entities;
+using BookStore.Mvc.Helpers;
 using BookStore.Utilities;
 using BookStore.Utilities.Models;
 using System;
@@ -13,6 +14,10 @@ namespace BookStore.Mvc.Controllers
 {
     public class ShoppingCartController : Controller
     {
+        public ShoppingCartController()
+        {
+            Helper.IsAuthorized();
+        }
         HttpClient httpClient = new HttpClient();
         // GET: ShoppingCart
         public async Task<ActionResult> Index()
@@ -20,21 +25,22 @@ namespace BookStore.Mvc.Controllers
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_CART_URL));
             var cart = await rslt.Content.ReadAsAsync<ShoppingCartListDto>();
             HttpCookie aCookie = Response.Cookies.Get("cart");
+            
             if (aCookie != null)
             {
-                aCookie.Values["CartItems"] = Convert.ToString(cart.CartItems.Count);
+                aCookie.Values["CartItems"] = Convert.ToString(cart.Count);
             }
             else
             {
                 aCookie = new HttpCookie("cart");
-                aCookie.Values["CartItems"] = Convert.ToString(cart.CartItems.Count);
+                aCookie.Values["CartItems"] = Convert.ToString(cart.Count);
             }
             return View(cart);
         }
 
-        public async Task<ActionResult> AddToCart(int itemId)
+        public async Task<ActionResult> AddToCart(int bookId)
         {
-            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.ADD_TO_CART_URL}{itemId}"),Convert.ToString(itemId));
+            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.ADD_TO_CART_URL}{bookId}"),Convert.ToString(bookId));
             var cart = await rslt.Content.ReadAsAsync<ShoppingCartListDto>();
 
            HttpCookie aCookie = Response.Cookies.Get("cart");

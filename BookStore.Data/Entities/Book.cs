@@ -7,8 +7,12 @@ using System.Data.Entity.Spatial;
 namespace BookStore.Data.Entities
 {
     [Table("Book")]
-    public class Book : IEntityBases
+    public class Book : IEntityBase
     {
+        public Book()
+        {
+            Stocks = new List<Item>();
+        }
         public int Id { get; set; }
         [StringLength(50)]
         public string Title { get; set; }

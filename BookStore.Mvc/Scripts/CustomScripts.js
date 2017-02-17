@@ -31,46 +31,22 @@
     }
 
 
-    $(".ratingStar").click(function () {
-        clickedFlag = true;
-        $(".ratingStar").unbind("mouseout mouseover click").css("cursor", "default");
-
-        var url = "/Home/SendRating?r=" + $(this).attr("data-value") + "&s=5&id=@Model&url=@url";
-        $.post(url, null, function (data) {
-            $("#lblResult").html(data);
-        });
-    });
-    $("#lblResult").ajaxStart(function () {
-        $("#lblResult").html("Processing ....");
-    });
-    $("#lblResult").ajaxError(function () {
-        $("#lblResult").html("<br />Error occured.");
-    });
-
-    $("#btnRemoveCart").click(function () {
+    $('#btnRemoveCart').click(function () {
+        alert('onclick');
         // Get the id from the link
         var recordToDelete = $(this).attr("data-id");
 
-        if (recordToDelete != '') {
-
+        if (recordToDelete !== '') {
+            console.log('onclick');
             // Perform the ajax post
-            $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
+            $.post("/ShoppingCart/RemoveFromCart", { "cartItemId": recordToDelete },
                 function (data) {
                     // Successful requests get here
-                    // Update the page elements
-                    if (data.ItemCount == 0) {
-                        $('#row-' + data.DeleteId).fadeOut('slow');
-                    } else {
-                        $('#item-count-' + data.DeleteId).text(data.ItemCount);
-                    }
-
-                    $('#cart-total').text(data.CartTotal);
-                    $('#update-message').text(data.Message);
-                    $('#cart-status').text('Cart (' + data.CartCount + ')');
                 });
         }
     });
-        console.log(1);
+
+   
         $("#shoppingcart p").html("Cart("+getCookie("cart")+")");
     
 
@@ -80,15 +56,14 @@
         var ca = decodedCookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') {
+            while (c.charAt(0) === ' ') {
                 c = c.substring(1);
             }
-            if (c.indexOf(name) == 0) {
+            if (c.indexOf(name) === 0) {
                var cookie = c.substring(name.length, c.length);
                return cookie.substring(10, cookie.length)
             }
         }
         return "";
     }
-
 });

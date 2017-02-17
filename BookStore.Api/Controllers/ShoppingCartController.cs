@@ -13,55 +13,63 @@ using System.Web.Http;
 namespace BookStore.Api.Controllers
 {
     [RoutePrefix("api/cart")]
+    [Authorize]
     public class ShoppingCartController : ApiController
     {
         private CustomMappings _customMappings = new CustomMappings();
-        public readonly IEntityBaseRepository<ShoppingCart> _shoppingCart;
+        public readonly IEntityBaseRepository<ShoppingCart> _shoppingCartRepository;
         public readonly IEntityBaseRepository<Order> _orders;
         public readonly IEntityBaseRepository<OrderDetail> _orderDetail;
         private readonly IEntityBaseRepository<Item> _itemRepository;
         protected readonly IUnitOfWork _unitOfWork;
 
-        public ShoppingCartController(IEntityBaseRepository<ShoppingCart> shoppingCart,
-            IEntityBaseRepository<Order> orders, IEntityBaseRepository<OrderDetail> orderDetail, IEntityBaseRepository<Item> itemRepository, IUnitOfWork unitOfWork)
+        public ShoppingCartController(
+            IEntityBaseRepository<ShoppingCart> shoppingCart,
+            IEntityBaseRepository<Order> orders,
+            IEntityBaseRepository<OrderDetail> orderDetail,
+            IEntityBaseRepository<Item> itemRepository,
+            IUnitOfWork unitOfWork)
         {
-            _shoppingCart = shoppingCart;
+            _shoppingCartRepository = shoppingCart;
             _orders = orders;
             _orderDetail = orderDetail;
             _itemRepository = itemRepository;
             _unitOfWork = unitOfWork;
         }
-        public int GetCount()
+        public Dictionary<int, List<ShoppingCart>> GroupBy(int userId)
         {
-            int? count = (from cartItems in _shoppingCart.All
-                          where cartItems.CartId == "4"
-                          select (int?)cartItems.TotalItems).Sum();
-            return count ?? 0;
+            var groupedRslt = _shoppingCartRepository.All
+                 .Where(x => x.UserId == userId)
+                 .GroupBy(y => y.Item.BookID)
+                 .ToDictionary(s => s.Key, s => s.ToList());
+            return groupedRslt;
         }
+
+
         public ShoppingCartListDto GetCartDto()
         {
             string cartId = "4";// Convert.ToString(HttpContext.Current.Session["userId"]);
             var cartItems = new List<CartItemDto>();
-            var carts = _shoppingCart.All.Where(x => x.CartId == cartId).ToList();
-            int itemIdTemp = 0;
+            var carts = GroupBy(4);
+            int totalItems = 0;
             foreach (var cart in carts)
             {
                 cartItems.Add(new CartItemDto
                 {
-                    Title = cart.Item.Book.Title,
-                    Author = cart.Item.Book.Author,
-                    Price = cart.Item.Price,
-                    Quantity = carts.Count(x => x.ItemId == cart.ItemId),
-                    RecordId = cart.Id,
+                    Title = cart.Value.Select(x => x.Item.Book.Title).First(),
+                    Author = cart.Value.Select(x => x.Item.Book.Author).First(),
+                    Price = cart.Value.Select(x => x.Item.Price).First(),
+                    Quantity = cart.Value.Count(),
+                    RecordId = cart.Key,
                 });
-                itemIdTemp = cart.ItemId;
+                totalItems += cart.Value.Count();
             }
             var cartDto = new ShoppingCartListDto()
             {
                 UserId = cartId,
                 CartItems = cartItems,
                 CartTotal = 15,
-                Count = GetCount()
+                Count = totalItems
             };
             return cartDto;
         }
@@ -76,36 +84,35 @@ namespace BookStore.Api.Controllers
 
         [Route("addtocart")]
         [HttpPost]
-        public IHttpActionResult AddToCart(string itemId)
+        public IHttpActionResult AddToCart(string bookId)
         {
-            int itemIdd = Convert.ToInt32(itemId);
+            int bookIdd = Convert.ToInt32(bookId);
             ShoppingCartListDto cartDto = null;
-            if (itemIdd != 0)
+            if (bookIdd != 0)
             {
-                var item = _itemRepository.All.SingleOrDefault(x => x.Id == itemIdd);
-                if (item != null)
-                {
-                    var bookVm = _customMappings.MapTobookVm(item);
-                    var cart = _shoppingCart.All.SingleOrDefault(x => x.Item.BookID == bookVm.BookId);
+                var itemIdExcept = _itemRepository
+                         .All.Select(x => x.Id)
+                         .Except(_shoppingCartRepository
+                         .All.Select(x => x.ItemId))
+                         .ToList();
 
-                    if (cart == null)
+                if (itemIdExcept.Count > 0)
+                {
+                    var cart = new ShoppingCart
                     {
-                        cart = new ShoppingCart
-                        {
-                            UserId = 4,
-                            TotalItems = 1,
-                            DateCreated = DateTime.Now,
-                            ItemId = bookVm.BookId
-                        };
-                        _shoppingCart.Add(cart);
-                    }
-                    else
-                    {
-                        cart.TotalItems++;
-                    }
+                        UserId = 4,
+                        TotalItems = 1,
+                        DateCreated = DateTime.Now,
+                        ItemId = itemIdExcept.First()
+                    };
+                    _shoppingCartRepository.Add(cart);
                 }
-                _unitOfWork.Commit();
+                else
+                {
+                    BadRequest("The Book has not items in stock");
+                }
             }
+            _unitOfWork.Commit();
             cartDto = GetCartDto();
             return Ok(cartDto);
         }
@@ -116,22 +123,50 @@ namespace BookStore.Api.Controllers
         {
             try
             {
-                var cartItem = _shoppingCart.All.Single(p => p.Id == Convert.ToInt32(cartItemId));
-                _shoppingCart.Delete(cartItem);
-                _unitOfWork.Commit();
-                var removeFromCartDto = new RemoveFromCartDto
+                int bookId = 0;
+                if (int.TryParse(cartItemId, out bookId))
                 {
-                    Message = "The item has been removed successfully",
-                    DeleteId = Convert.ToInt32(cartItemId),
-                    CartTotal = 15,
-                    ItemCount = GetCount()
-                };
+                    var items = _itemRepository.All.Where(x => x.BookID == bookId).Select(x => x.Id).ToList();
+                    var itemsIntersection = items.Intersect(_shoppingCartRepository.All.Select(x => x.ItemId));
+               
+                    foreach (var item in itemsIntersection)
+                    {
+                        var cartItem = _shoppingCartRepository.All
+                       .Single(p => p.ItemId == item);
+
+                        _shoppingCartRepository.Delete(cartItem);
+                    }
+                   
+                    _unitOfWork.Commit();
+
+                    var removeFromCartDto = new RemoveFromCartDto
+                    {
+                        Message = "The item has been removed successfully",
+                        DeleteId = Convert.ToInt32(cartItemId),
+                        CartTotal = 15,
+                        ItemCount = GetCartTotalItems()
+                    };
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {
                 return BadRequest();
             }
             return Ok();
+        }
+
+        public int GetCartTotalItems()
+        {
+            int totalItems = 0;
+            foreach (var item in GroupBy(4))
+            {
+                totalItems = item.Value.Count;
+            }
+            return totalItems;
         }
     }
 }

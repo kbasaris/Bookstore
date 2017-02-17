@@ -2,7 +2,7 @@
 
 namespace BookStore.Data.Entities
 {
-    public class Error : IEntityBases
+    public class Error : IEntityBase
     {
         public int Id { get; set; }
         public string Message { get; set; }

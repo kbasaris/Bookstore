@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using BookStore.Data.Entities;
 
 namespace BookStore.Utilities.Models
 {
@@ -22,6 +23,7 @@ namespace BookStore.Utilities.Models
         public string ImageBase64 { get; set; }
         public string ImageName { get; set; }
         public int UserId { get; set; }
+        public List<Item> Stocks { get; set; }
 
     }
 }

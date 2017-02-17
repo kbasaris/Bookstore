@@ -7,7 +7,7 @@ using System.Data.Entity.Spatial;
 namespace BookStore.Data.Entities
 {
     [Table("Item")]
-    public class Item : IEntityBases
+    public class Item : IEntityBase
     {
         public int Id { get; set; }
         public int BookID { get; set; }
@@ -16,5 +16,6 @@ namespace BookStore.Data.Entities
         public decimal? Price { get; set; }
         public int? NumOfStocks { get; set; }
         public virtual Book Book { get; set; }
+
     }
 }

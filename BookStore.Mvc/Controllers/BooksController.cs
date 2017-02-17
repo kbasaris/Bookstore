@@ -10,15 +10,22 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using System.Net.Http.Headers;
 
 namespace BookStore.Mvc.Controllers
 {
     public class BooksController : Controller
     {
         HttpClient httpClient = new HttpClient();
+        public BooksController()
+        {
+            //httpClient.DefaultRequestHeaders.Add("Bearer", Convert.ToString());
+        }
+       
         // GET: Books
         public async Task<ActionResult> Index(int? page)
         {
+            var token = Session["accesstoken"];
             var pageNumber = page ?? 1;
             var pageSize = 10;
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
@@ -36,6 +43,7 @@ namespace BookStore.Mvc.Controllers
         {
             var pageNumber = page ?? 1;
             var pageSize = 10;
+          
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
             var books = await rslt.Content.ReadAsAsync<IEnumerable<BookViewModel>>();
             var pagedListBook = books.ToPagedList(pageNumber, pageSize);

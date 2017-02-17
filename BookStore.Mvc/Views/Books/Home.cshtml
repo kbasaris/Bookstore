@@ -10,7 +10,6 @@
         Page Header
         <small>Optional description</small>
     </h1>
-    <button id="testbtn"></button>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">Here</li>
@@ -76,7 +75,7 @@
                                     </p>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 emphasis">
-                                    <button  onclick="location.href='@Url.Action("AddToCart", "ShoppingCart",new {itemId =  item.Id})'" type="button" class="btn btn-success btn-xs">
+                                    <button  onclick="location.href='@Url.Action("AddToCart", "ShoppingCart",new { bookId =  item.BookId})'" type="button" class="btn btn-success btn-xs">
                                         <i class="fa fa-user">
                                         </i> <i class="fa fa-comments-o"></i>
                                     </button>
@@ -88,7 +87,6 @@
                         </div>
                     </div>
                     }
-
                 </div>
             </div>
         </div>
