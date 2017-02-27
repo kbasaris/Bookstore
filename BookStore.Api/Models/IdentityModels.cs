@@ -21,7 +21,7 @@ namespace BookStore.Api.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("BookStore2", throwIfV1Schema: false)
         {
         }
         

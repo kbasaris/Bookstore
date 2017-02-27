@@ -16,13 +16,22 @@ namespace BookStore.Mvc.Controllers
     {
         public ShoppingCartController()
         {
-            Helper.IsAuthorized();
+        
         }
         HttpClient httpClient = new HttpClient();
         // GET: ShoppingCart
         public async Task<ActionResult> Index()
         {
-            var rslt = await httpClient.GetAsync(new Uri(Constants.GET_CART_URL));
+            var token = Session["accesstoken"];
+            var userId = Session["userid"];
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
+            var rslt = await httpClient.GetAsync(new Uri(string.Format("{0}userId={1}",Constants.GET_CART_URL,userId)));
+
+            if (!rslt.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
             var cart = await rslt.Content.ReadAsAsync<ShoppingCartListDto>();
             HttpCookie aCookie = Response.Cookies.Get("cart");
             
@@ -40,7 +49,16 @@ namespace BookStore.Mvc.Controllers
 
         public async Task<ActionResult> AddToCart(int bookId)
         {
-            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.ADD_TO_CART_URL}{bookId}"),Convert.ToString(bookId));
+            var token = Session["accesstoken"];
+            var userId = Session["userid"];
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
+            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.ADD_TO_CART_URL}{bookId}&userId={userId}"),Convert.ToString(bookId));
+
+            if (!rslt.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
             var cart = await rslt.Content.ReadAsAsync<ShoppingCartListDto>();
 
            HttpCookie aCookie = Response.Cookies.Get("cart");
@@ -59,7 +77,15 @@ namespace BookStore.Mvc.Controllers
 
         public async Task<JsonResult> RemoveFromCart(int cartItemId)
         {
-            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.REMOVE_FROM_CART_URL}{cartItemId}"), Convert.ToString(cartItemId));
+            var token = Session["accesstoken"];
+            var userId = Session["userid"];
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
+            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.REMOVE_FROM_CART_URL}{cartItemId}&userId={userId}"), Convert.ToString(cartItemId));
+
+            if (!rslt.IsSuccessStatusCode)
+            {
+                return new JsonResult { Data = "Error" };
+            }
             var cart = await rslt.Content.ReadAsAsync<RemoveFromCartDto>();
 
             return new JsonResult { Data = cart };

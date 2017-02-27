@@ -19,8 +19,8 @@
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
             @*<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>*@
-            @*@if (Convert.ToInt32(Session["userRole"]) == 1)
-            {*@
+            @if (Convert.ToInt32(Session["userRole"]) == 1)
+            {
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-link"></i> <span>Books</span>
@@ -35,11 +35,11 @@
                         <li><a href="/Books/Index">Show Books</a></li>
                     </ul>
                 </li>
-            @*}
+            }
             else
             {
             <li class="active"><a href="/Books/Home"><i class="fa fa-link"></i> <span>Home</span></a></li>
-            }*@
+            }
         </ul>
         <!-- /.sidebar-menu -->
     </section>

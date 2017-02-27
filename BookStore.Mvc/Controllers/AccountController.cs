@@ -27,7 +27,7 @@ namespace BookStore.Mvc.Controllers
                 new KeyValuePair<string, string>("username", loginViewModel.Username),
                 new KeyValuePair<string, string>("password", loginViewModel.Password)
             });
-            //grant_type=password&username=k.asharis@gmail.com&password=Abc@123
+            //grant_type=password&username=k.basharis@gmail.com&password=Abc@123
             var rslt = httpClient.PostAsync(new Uri(Constants.LOGIN_URL), formContent).Result;
             ViewBag.loginRslt = rslt.IsSuccessStatusCode;
             if (!rslt.IsSuccessStatusCode)
@@ -37,13 +37,22 @@ namespace BookStore.Mvc.Controllers
             JToken token = JObject.Parse(userInfo);
             string accessToken = Convert.ToString(token.SelectToken("access_token"));
             string username = Convert.ToString(token.SelectToken("userName"));
+            string roles = Convert.ToString(token.SelectToken("roles"));
+            string UserId = Convert.ToString(token.SelectToken("userid"));
 
+            Session.Add("roles", UserId);
+            Session.Add("userid", roles);
             Session.Add("username", username);
             Session.Add("accessToken", accessToken);
 
             httpClient.Dispose();
 
-            return RedirectToAction("Index", "Books");
+            if (Convert.ToInt32(roles) ==1)
+            {
+                return RedirectToAction("Index", "Books");
+            }
+            return RedirectToAction("Home", "Books");
+
         }
 
         public ActionResult Register()

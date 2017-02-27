@@ -36,55 +36,17 @@ namespace BookStore.Api.Controllers
             _itemRepository = itemRepository;
             _unitOfWork = unitOfWork;
         }
-        public Dictionary<int, List<ShoppingCart>> GroupBy(int userId)
-        {
-            var groupedRslt = _shoppingCartRepository.All
-                 .Where(x => x.UserId == userId)
-                 .GroupBy(y => y.Item.BookID)
-                 .ToDictionary(s => s.Key, s => s.ToList());
-            return groupedRslt;
-        }
-
-
-        public ShoppingCartListDto GetCartDto()
-        {
-            string cartId = "4";// Convert.ToString(HttpContext.Current.Session["userId"]);
-            var cartItems = new List<CartItemDto>();
-            var carts = GroupBy(4);
-            int totalItems = 0;
-            foreach (var cart in carts)
-            {
-                cartItems.Add(new CartItemDto
-                {
-                    Title = cart.Value.Select(x => x.Item.Book.Title).First(),
-                    Author = cart.Value.Select(x => x.Item.Book.Author).First(),
-                    Price = cart.Value.Select(x => x.Item.Price).First(),
-                    Quantity = cart.Value.Count(),
-                    RecordId = cart.Key,
-                });
-                totalItems += cart.Value.Count();
-            }
-            var cartDto = new ShoppingCartListDto()
-            {
-                UserId = cartId,
-                CartItems = cartItems,
-                CartTotal = 15,
-                Count = totalItems
-            };
-            return cartDto;
-        }
-
+      
         [Route("getcart")]
-        public IHttpActionResult GetCart()
+        public IHttpActionResult GetCart(string userId)
         {
 
-            var cartDto = GetCartDto();
+            var cartDto = GetCartDto(userId);
             return Ok(cartDto);
         }
-
         [Route("addtocart")]
         [HttpPost]
-        public IHttpActionResult AddToCart(string bookId)
+        public IHttpActionResult AddToCart(string bookId,string userId)
         {
             int bookIdd = Convert.ToInt32(bookId);
             ShoppingCartListDto cartDto = null;
@@ -100,7 +62,7 @@ namespace BookStore.Api.Controllers
                 {
                     var cart = new ShoppingCart
                     {
-                        UserId = 4,
+                        UserId = userId,
                         TotalItems = 1,
                         DateCreated = DateTime.Now,
                         ItemId = itemIdExcept.First()
@@ -113,13 +75,12 @@ namespace BookStore.Api.Controllers
                 }
             }
             _unitOfWork.Commit();
-            cartDto = GetCartDto();
+            cartDto = GetCartDto(userId);
             return Ok(cartDto);
         }
-
         [Route("removefromcart")]
         [HttpPost]
-        public IHttpActionResult RemoveFromCart(string cartItemId)
+        public IHttpActionResult RemoveFromCart(string cartItemId,string userId)
         {
             try
             {
@@ -144,7 +105,7 @@ namespace BookStore.Api.Controllers
                         Message = "The item has been removed successfully",
                         DeleteId = Convert.ToInt32(cartItemId),
                         CartTotal = 15,
-                        ItemCount = GetCartTotalItems()
+                        ItemCount = GetCartTotalItems(userId)
                     };
                 }
                 else
@@ -158,15 +119,49 @@ namespace BookStore.Api.Controllers
             }
             return Ok();
         }
-
-        public int GetCartTotalItems()
+        public int GetCartTotalItems(string userId)
         {
             int totalItems = 0;
-            foreach (var item in GroupBy(4))
+            foreach (var item in GroupBy(userId))
             {
                 totalItems = item.Value.Count;
             }
             return totalItems;
+        }
+        public Dictionary<int, List<ShoppingCart>> GroupBy(string userId)
+        {
+            var groupedRslt = _shoppingCartRepository.All
+                 .Where(x => x.UserId == userId)
+                 .GroupBy(y => y.Item.BookID)
+                 .ToDictionary(s => s.Key, s => s.ToList());
+            return groupedRslt;
+        }
+        public ShoppingCartListDto GetCartDto(string userId)
+        {
+            string cartId = userId;// Convert.ToString(HttpContext.Current.Session["userId"]);
+            var cartItems = new List<CartItemDto>();
+            var carts = GroupBy(userId);
+            int totalItems = 0;
+            foreach (var cart in carts)
+            {
+                cartItems.Add(new CartItemDto
+                {
+                    Title = cart.Value.Select(x => x.Item.Book.Title).First(),
+                    Author = cart.Value.Select(x => x.Item.Book.Author).First(),
+                    Price = cart.Value.Select(x => x.Item.Price).First(),
+                    Quantity = cart.Value.Count(),
+                    RecordId = cart.Key,
+                });
+                totalItems += cart.Value.Count();
+            }
+            var cartDto = new ShoppingCartListDto()
+            {
+                UserId = cartId,
+                CartItems = cartItems,
+                CartTotal = 15,
+                Count = totalItems
+            };
+            return cartDto;
         }
     }
 }

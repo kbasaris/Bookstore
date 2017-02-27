@@ -1,5 +1,4 @@
 c:\users\kbasa\documents\visual studio 2015\Projects\BookStore.Api\BookStore.Api\obj\Debug\BookStore.Api.csprojResolveAssemblyReference.cache
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\obj\Debug\BookStore.Api.csprojResolveAssemblyReference.cache
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\ApplicationInsights.config
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\roslyn\csc.exe
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -119,5 +118,9 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\ru\FluentValidation.reso
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\sv\FluentValidation.resources.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\tr\FluentValidation.resources.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\zh-CN\FluentValidation.resources.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\obj\Debug\BookStore.Api.csprojResolveAssemblyReference.cache
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\obj\Debug\BookStore.Api.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\obj\Debug\BookStore.Api.pdb
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\NLog.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\Purplelight.Framework.Autofac.Integration.WebApi.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\NLog.xml

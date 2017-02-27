@@ -19,16 +19,22 @@ namespace BookStore.Mvc.Controllers
         HttpClient httpClient = new HttpClient();
         public BooksController()
         {
-            //httpClient.DefaultRequestHeaders.Add("Bearer", Convert.ToString());
+           
         }
        
         // GET: Books
         public async Task<ActionResult> Index(int? page)
         {
             var token = Session["accesstoken"];
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));//Authorization = new AuthenticationHeaderValue("Bearer", Convert.ToString(token));
             var pageNumber = page ?? 1;
             var pageSize = 10;
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
+            if (!rslt.IsSuccessStatusCode)
+            {
+                return Redirect(@"~/Views/Shared/Error.cshtml");
+            }
+
             var books = await rslt.Content.ReadAsAsync<IEnumerable<BookViewModel>>();
             var pagedListBook = books.ToPagedList(pageNumber, pageSize);
             foreach (var book in books)
@@ -41,10 +47,16 @@ namespace BookStore.Mvc.Controllers
 
         public async Task<ActionResult> Home(int? page)
         {
+            var token = Session["accesstoken"];
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
             var pageNumber = page ?? 1;
             var pageSize = 10;
           
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
+            if (!rslt.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Error");
+            }
             var books = await rslt.Content.ReadAsAsync<IEnumerable<BookViewModel>>();
             var pagedListBook = books.ToPagedList(pageNumber, pageSize);
             foreach (var book in books)
@@ -78,6 +90,8 @@ namespace BookStore.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                var token = Session["accesstoken"];
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
                 if (file != null && file.ContentLength > 0)
                 {
                     MemoryStream target = new MemoryStream();
@@ -86,6 +100,12 @@ namespace BookStore.Mvc.Controllers
                     bookVm.ImageName = file.FileName;
                 }
                 var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.ADD_BOOK_URL), bookVm);
+
+
+                if (!rslt.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", "Error");
+                }
                 var book = await rslt.Content.ReadAsAsync<BookViewModel>();
                 httpClient.Dispose();
 
@@ -97,7 +117,15 @@ namespace BookStore.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
+            var token = Session["accesstoken"];
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
             var rslt = await httpClient.GetAsync(new Uri($"{Constants.GET_BOOK_BY_ID_URL}id={id}"));
+
+
+            if (!rslt.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Error");
+            }
             var book = await rslt.Content.ReadAsAsync<BookViewModel>();
             if (book.Image != null)
             {
@@ -111,6 +139,8 @@ namespace BookStore.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                var token = Session["accesstoken"];
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
                 if (file != null && file.ContentLength > 0)
                 {
                     MemoryStream target = new MemoryStream();
@@ -120,6 +150,11 @@ namespace BookStore.Mvc.Controllers
                 }
 
                 var rslt = await httpClient.PostAsJsonAsync(new Uri(Constants.EDIT_BOOK), bookVm);
+
+                if (!rslt.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", "Error");
+                }
                 var newBookVm = await rslt.Content.ReadAsAsync<BookViewModel>();
                 httpClient.Dispose();
 
@@ -131,7 +166,14 @@ namespace BookStore.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
+            var token = Session["accesstoken"];
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
             var rslt = await httpClient.DeleteAsync(new Uri($"{Constants.DELETE_BOOK}id={id}"));
+
+            if (!rslt.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Error");
+            }
             var newBookVm = await rslt.Content.ReadAsAsync<BookViewModel>();
             httpClient.Dispose();
 

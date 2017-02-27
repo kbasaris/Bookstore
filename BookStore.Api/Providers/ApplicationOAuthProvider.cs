@@ -43,8 +43,8 @@ namespace BookStore.Api.Providers
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
-
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            var roles = user.Roles;
+            AuthenticationProperties properties = CreateProperties(user.UserName, string.Join(",",user.Roles.Select(x => x.RoleId).ToArray()),user.Id);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -86,11 +86,13 @@ namespace BookStore.Api.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(string userName, string Roles,string userId)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName }
+                {"userName", userName},
+                {"roles", Roles},
+                {"userid", userId}
             };
             return new AuthenticationProperties(data);
         }

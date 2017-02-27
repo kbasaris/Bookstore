@@ -44,6 +44,7 @@ C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Mvc\bin\Newtonsoft.Json.xml
 C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.csprojResolveAssemblyReference.cache
 C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.dll
 C:\Users\Kostas\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.pdb
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\ApplicationInsights.config
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\roslyn\csc.exe
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -126,4 +127,3 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\zh-CN\FluentValidation.r
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.csprojResolveAssemblyReference.cache
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\obj\Debug\BookStore.Mvc.pdb
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Mvc\bin\ApplicationInsights.config

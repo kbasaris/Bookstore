@@ -8,6 +8,7 @@ namespace BookStore.Utilities
     public static class Constants
     {
         public const string LOGIN_URL = "http://localhost:6478/token";
+        public const string LOGOUT_URL = "http://localhost:6478/api/account/logout";
         public const string REGISTER_URL = "http://localhost:6478/api/Account/Register";
         public const string ADD_BOOK_URL = "http://localhost:6478/api/books/add";
         public const string GET_BOOK_URL = "http://localhost:6478/api/books/getbooks";
