@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -16,8 +15,6 @@ using Microsoft.Owin.Security.OAuth;
 using BookStore.Api.Models;
 using BookStore.Api.Providers;
 using BookStore.Api.Results;
-using Microsoft.Owin;
-using System.Security.Principal;
 using System.Linq;
 
 namespace BookStore.Api.Controllers

@@ -14,18 +14,22 @@ namespace BookStore.Mvc.Controllers
 {
     public class ShoppingCartController : Controller
     {
+        HttpClient httpClient = null;
+        HttpCookie bCookie = null;
         public ShoppingCartController()
         {
-        
+            httpClient = new HttpClient();
         }
-        HttpClient httpClient = new HttpClient();
         // GET: ShoppingCart
         public async Task<ActionResult> Index()
         {
-            var token = Session["accesstoken"];
-            var userId = Session["userid"];
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
-            var rslt = await httpClient.GetAsync(new Uri(string.Format("{0}userId={1}",Constants.GET_CART_URL,userId)));
+            bCookie = Request.Cookies.Get("creds");
+            if (bCookie == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + bCookie.Values["accessToken"]);
+            var rslt = await httpClient.GetAsync(new Uri(string.Format("{0}userId={1}",Constants.GET_CART_URL, bCookie.Values["userid"])));
 
             if (!rslt.IsSuccessStatusCode)
             {
@@ -49,10 +53,13 @@ namespace BookStore.Mvc.Controllers
 
         public async Task<ActionResult> AddToCart(int bookId)
         {
-            var token = Session["accesstoken"];
-            var userId = Session["userid"];
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
-            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.ADD_TO_CART_URL}{bookId}&userId={userId}"),Convert.ToString(bookId));
+            bCookie = Request.Cookies.Get("creds");
+            if (bCookie == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + bCookie.Values["accessToken"]);
+            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.ADD_TO_CART_URL}{bookId}&userId={bCookie.Values["userid"]}"),Convert.ToString(bookId));
 
             if (!rslt.IsSuccessStatusCode)
             {
@@ -77,10 +84,9 @@ namespace BookStore.Mvc.Controllers
 
         public async Task<JsonResult> RemoveFromCart(int cartItemId)
         {
-            var token = Session["accesstoken"];
-            var userId = Session["userid"];
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
-            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.REMOVE_FROM_CART_URL}{cartItemId}&userId={userId}"), Convert.ToString(cartItemId));
+            bCookie = Request.Cookies.Get("creds");
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + bCookie.Values["accessToken"]);
+            var rslt = await httpClient.PostAsJsonAsync(new Uri($"{Constants.REMOVE_FROM_CART_URL}{cartItemId}&userId={bCookie.Values["userid"]}"), Convert.ToString(cartItemId));
 
             if (!rslt.IsSuccessStatusCode)
             {

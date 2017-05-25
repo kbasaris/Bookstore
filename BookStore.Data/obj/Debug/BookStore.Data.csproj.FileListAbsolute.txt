@@ -61,7 +61,6 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\bin\Debug\Microsoft.Owin.Se
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\bin\Debug\Microsoft.Owin.Security.Cookies.xml
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\bin\Debug\Newtonsoft.Json.xml
-C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csprojResolveAssemblyReference.cache
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.init1.resources
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations.Error.resources
@@ -90,3 +89,6 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.cs
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.pdb
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations._323.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.csprojResolveAssemblyReference.cache
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations._32435.resources
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Data\obj\Debug\BookStore.Data.Migrations._4343553.resources

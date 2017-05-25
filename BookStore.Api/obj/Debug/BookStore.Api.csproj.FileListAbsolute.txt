@@ -124,3 +124,6 @@ C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\obj\Debug\BookStore.Api.pdb
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\NLog.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\Purplelight.Framework.Autofac.Integration.WebApi.dll
 C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\NLog.xml
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\Microsoft.Owin.Cors.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\System.Web.Cors.dll
+C:\Users\kbasa\Source\Repos\Bookstore\BookStore.Api\bin\Microsoft.Owin.Cors.xml

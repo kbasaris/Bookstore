@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using BookStore.Utilities;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Web;
 
 namespace BookStore.Mvc.Controllers
 {
@@ -38,12 +39,15 @@ namespace BookStore.Mvc.Controllers
             string accessToken = Convert.ToString(token.SelectToken("access_token"));
             string username = Convert.ToString(token.SelectToken("userName"));
             string roles = Convert.ToString(token.SelectToken("roles"));
-            string UserId = Convert.ToString(token.SelectToken("userid"));
+            string userId = Convert.ToString(token.SelectToken("userid"));
 
-            Session.Add("roles", UserId);
-            Session.Add("userid", roles);
-            Session.Add("username", username);
-            Session.Add("accessToken", accessToken);
+            HttpCookie aCookie = new HttpCookie("creds");
+
+            aCookie.Values["roles"] = roles;
+            aCookie.Values["userid"] = userId;
+            aCookie.Values["username"] = username;
+            aCookie.Values["accessToken"] = accessToken;
+            HttpContext.Response.Cookies.Add(aCookie);
 
             httpClient.Dispose();
 

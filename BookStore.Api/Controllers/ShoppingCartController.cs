@@ -6,6 +6,7 @@ using BookStore.Data.Repositories;
 using BookStore.Utilities.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -132,6 +133,7 @@ namespace BookStore.Api.Controllers
         {
             var groupedRslt = _shoppingCartRepository.All
                  .Where(x => x.UserId == userId)
+                 .Include(x => x.Item)
                  .GroupBy(y => y.Item.BookID)
                  .ToDictionary(s => s.Key, s => s.ToList());
             return groupedRslt;
@@ -144,15 +146,20 @@ namespace BookStore.Api.Controllers
             int totalItems = 0;
             foreach (var cart in carts)
             {
-                cartItems.Add(new CartItemDto
-                {
-                    Title = cart.Value.Select(x => x.Item.Book.Title).First(),
-                    Author = cart.Value.Select(x => x.Item.Book.Author).First(),
-                    Price = cart.Value.Select(x => x.Item.Price).First(),
-                    Quantity = cart.Value.Count(),
-                    RecordId = cart.Key,
-                });
-                totalItems += cart.Value.Count();
+                var itemId = cart.Value.Select(x => x.ItemId).FirstOrDefault();
+               
+                    var itemBook = _itemRepository.GetSingle(itemId);
+                    cartItems.Add(new CartItemDto
+                    {
+                        Title = itemBook.Book.Title,
+                        Author = itemBook.Book.Author,
+                        Price = itemBook.Price,
+                        Quantity = cart.Value.Count(),
+                        RecordId = cart.Key,
+                    });
+                    totalItems += cart.Value.Count();
+                
+          
             }
             var cartDto = new ShoppingCartListDto()
             {

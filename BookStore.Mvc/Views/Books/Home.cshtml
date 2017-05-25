@@ -7,8 +7,7 @@
 <script src="~/Scripts/CustomScripts.js"></script>
 <section class="content-header">
     <h1>
-        Page Header
-        <small>Optional description</small>
+        Home
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -23,16 +22,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                         <ul class="pagination pagination-split">
-                            <li><a href="#">A</a></li>
-                            <li><a href="#">B</a></li>
-                            <li><a href="#">C</a></li>
-                            <li><a href="#">D</a></li>
-                            <li><a href="#">E</a></li>
-                            <li>...</li>
-                            <li><a href="#">W</a></li>
-                            <li><a href="#">X</a></li>
-                            <li><a href="#">Y</a></li>
-                            <li><a href="#">Z</a></li>
+                          
                         </ul>
                     </div>
 
@@ -42,9 +32,9 @@
                     {
 
 
-                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                            <div class="col-sm-12">
+                    <div  class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                        <div style="height:250px" class="well profile_view">
+                            <div style="height:200px" class="col-sm-12">
                                 <h4 class="brief"><i>@item.Title</i></h4>
                                 <div class="left col-xs-7">
                                     <h2>@item.Author</h2>
@@ -76,11 +66,7 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-6 emphasis">
                                     <button  onclick="location.href='@Url.Action("AddToCart", "ShoppingCart",new { bookId =  item.BookId})'" type="button" class="btn btn-success btn-xs">
-                                        <i class="fa fa-user">
-                                        </i> <i class="fa fa-comments-o"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-xs">
-                                        <i class="fa fa-user"> </i> View Details
+                                        <i class="fa">Add To Cart</i>
                                     </button>
                                 </div>
                             </div>

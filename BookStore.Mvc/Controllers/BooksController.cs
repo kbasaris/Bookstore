@@ -16,17 +16,24 @@ namespace BookStore.Mvc.Controllers
 {
     public class BooksController : Controller
     {
-        HttpClient httpClient = new HttpClient();
+        HttpClient httpClient = null;
+        HttpCookie aCookie = null;
+
         public BooksController()
         {
-           
+            httpClient = new HttpClient();
+        
         }
        
         // GET: Books
         public async Task<ActionResult> Index(int? page)
         {
-            var token = Session["accesstoken"];
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));//Authorization = new AuthenticationHeaderValue("Bearer", Convert.ToString(token));
+            aCookie = Request.Cookies.Get("creds");
+            if (aCookie == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + aCookie.Values["accessToken"]);
             var pageNumber = page ?? 1;
             var pageSize = 10;
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
@@ -47,11 +54,15 @@ namespace BookStore.Mvc.Controllers
 
         public async Task<ActionResult> Home(int? page)
         {
-            var token = Session["accesstoken"];
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
             var pageNumber = page ?? 1;
             var pageSize = 10;
-          
+            aCookie = Request.Cookies.Get("creds");
+            if (aCookie == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + aCookie.Values["accessToken"]);
+
             var rslt = await httpClient.GetAsync(new Uri(Constants.GET_BOOK_URL));
             if (!rslt.IsSuccessStatusCode)
             {
@@ -90,8 +101,12 @@ namespace BookStore.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var token = Session["accesstoken"];
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
+                aCookie = Request.Cookies.Get("creds");
+                if (aCookie == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + aCookie.Values["accessToken"]);
                 if (file != null && file.ContentLength > 0)
                 {
                     MemoryStream target = new MemoryStream();
@@ -117,8 +132,12 @@ namespace BookStore.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var token = Session["accesstoken"];
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
+            aCookie = Request.Cookies.Get("creds");
+            if (aCookie == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + aCookie.Values["accessToken"]);
             var rslt = await httpClient.GetAsync(new Uri($"{Constants.GET_BOOK_BY_ID_URL}id={id}"));
 
 
@@ -139,8 +158,12 @@ namespace BookStore.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var token = Session["accesstoken"];
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
+                aCookie = Request.Cookies.Get("creds");
+                if (aCookie == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + aCookie.Values["accessToken"]);
                 if (file != null && file.ContentLength > 0)
                 {
                     MemoryStream target = new MemoryStream();
@@ -166,8 +189,12 @@ namespace BookStore.Mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var token = Session["accesstoken"];
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + Convert.ToString(token));
+            aCookie = Request.Cookies.Get("creds");
+            if (aCookie == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + aCookie.Values["accessToken"]);
             var rslt = await httpClient.DeleteAsync(new Uri($"{Constants.DELETE_BOOK}id={id}"));
 
             if (!rslt.IsSuccessStatusCode)
